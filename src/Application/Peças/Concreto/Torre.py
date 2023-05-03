@@ -1,2 +1,2 @@
 class Torre:
-    None
+    pass

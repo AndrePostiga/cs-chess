@@ -1,2 +1,2 @@
 class RealPlayer:
-    None
+    pass

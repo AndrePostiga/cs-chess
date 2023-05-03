@@ -1,2 +1,2 @@
 class Peao:
-    None
+    pass

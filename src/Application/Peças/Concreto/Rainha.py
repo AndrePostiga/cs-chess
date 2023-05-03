@@ -1,2 +1,2 @@
 class Rainha:
-    None
+    pass
