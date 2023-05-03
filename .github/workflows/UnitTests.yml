@@ -55,7 +55,7 @@ jobs:
 
       - name: Test with pytest
         run: |
-          pytest --cov=./ --cov-report=xml:coverage-reports/coverage.xml --doctest-modules
+          pytest --cov=./ --cov-report=xml:coverage-reports/coverage.xml --cov-branch --doctest-modules
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
@@ -75,6 +75,10 @@ jobs:
         with:
           name: code-cov-artifact
           path: coverage-reports/coverage.xml
+
+      - name: Cat Code Cov
+        run: |
+          cat coverage-reports/coverage.xml
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
