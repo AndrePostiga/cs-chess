@@ -4,12 +4,15 @@ on: [push]
 
 jobs:
 
-  runs-on: ubuntu-latest
-  strategy:
-    matrix:
-      python-version: [ "3.10", "3.11" ]
+
+
 
   Build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ "3.10", "3.11" ]
+
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python-version }}
@@ -28,6 +31,7 @@ jobs:
           if [ -f src/Chess.Tests/requirements.txt ]; then pip install -r src/Chess.Tests/requirements.txt; fi
             
   Linting:
+    runs-on: ubuntu-latest
     needs: build
     steps:
       -name: Linting
@@ -38,6 +42,7 @@ jobs:
         ruff --format=github --target-version=py37 .
 
   UnitTests:
+    runs-on: ubuntu-latest
     needs: Linting
     steps:
       - name: Test with pytest
@@ -45,6 +50,7 @@ jobs:
           pytest --cov=./ --cov-report=xml --doctest-modules
 
   SonarCloudScan:
+    runs-on: ubuntu-latest
     needs: UnitTests
     steps:
       - name: SonarCloud Scan
