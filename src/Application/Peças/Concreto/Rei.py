@@ -1,2 +1,2 @@
 class Rei:
-    None
+    pass

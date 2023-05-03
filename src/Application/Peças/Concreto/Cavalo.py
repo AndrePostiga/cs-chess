@@ -1,2 +1,2 @@
 class Cavalo:
-    None
+    pass

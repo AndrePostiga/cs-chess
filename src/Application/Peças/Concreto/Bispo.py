@@ -1,2 +1,2 @@
 class Bispo:
-    None
+    pass
