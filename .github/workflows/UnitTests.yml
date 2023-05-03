@@ -14,7 +14,7 @@ jobs:
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
-        python-version: ${{ matrix.python-version }}
+         python-version: ${{ matrix.python-version }}
 
       - name: Install Application Dependencies
         run: |
@@ -46,13 +46,14 @@ jobs:
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
-        python-version: ${{ matrix.python-version }}
+         python-version: ${{ matrix.python-version }}
 
       - name: Test with pytest
         run: |
           pytest --cov=./ --cov-report=xml:codecov-files/coverage.xml --doctest-modules
-          
+
       - name: Upload Artifact
+        uses: actions/upload-artifact@v2
         with:
           name: code-cov-artifact
           path: codecov-files/coverage.xml
@@ -74,6 +75,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
 
 #  build2:
 #
