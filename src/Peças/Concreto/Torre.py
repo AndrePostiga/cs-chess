@@ -1,2 +1,0 @@
-class Torre:
-    None
