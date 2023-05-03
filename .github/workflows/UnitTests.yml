@@ -19,12 +19,12 @@ jobs:
       - name: Install App Dependencies
         run: |
           python -m pip install --upgrade pip
-          if [ -f src/Chess.Application/requirements.txt ]; then pip install -r src/Chess.Application/requirements.txt; fi
+          if [ -f src/Application/requirements.txt ]; then pip install -r src/Application/requirements.txt; fi
 
       - name: Install Test Dependencies
         run: |
           python -m pip install --upgrade pip
-          if [ -f src/Chess.Tests/requirements.txt ]; then pip install -r src/Chess.Tests/requirements.txt; fi
+          if [ -f src/Tests/requirements.txt ]; then pip install -r src/Tests/requirements.txt; fi
 
       - name: Linting
         run: |
@@ -51,17 +51,17 @@ jobs:
       - name: Install Test Dependencies
         run: |
           python -m pip install --upgrade pip
-          if [ -f src/Chess.Tests/requirements.txt ]; then pip install -r src/Chess.Tests/requirements.txt; fi
+          if [ -f src/Tests/requirements.txt ]; then pip install -r src/Tests/requirements.txt; fi
 
       - name: Test with pytest
         run: |
-          pytest --cov=./ --cov-report=xml:codecov-files/coverage.xml --doctest-modules
+          pytest --cov=./ --cov-report=xml:coverage-reports/coverage-file.xml --doctest-modules
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
           name: code-cov-artifact
-          path: codecov-files/coverage.xml
+          path: coverage-reports/coverage.xml
 
   SonarCloudScan:
     needs: UnitTests
