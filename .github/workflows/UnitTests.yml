@@ -4,6 +4,7 @@ on: [push]
 
 jobs:
   BuildAndLint:
+    name: Build and Linting
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -35,6 +36,7 @@ jobs:
       
 
   UnitTests:
+    name: Run Unit Tests
     needs: BuildAndLint
     runs-on: ubuntu-latest
     strategy:
@@ -64,6 +66,7 @@ jobs:
           path: coverage-reports/coverage.xml
 
   SonarCloudScan:
+    name: Scan With Sonar Cloud
     needs: UnitTests
     runs-on: ubuntu-latest
     steps:
