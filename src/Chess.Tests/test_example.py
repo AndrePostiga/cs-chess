@@ -8,8 +8,8 @@ class TestExample:
 
 
     def test_isupper(self):
-        assert 'FOO'.isupper() == True
-        assert 'Foo'.isupper() == False
+        assert 'FOO'.isupper() is True
+        assert 'Foo'.isupper() is False
 
 
     def test_split(self):
