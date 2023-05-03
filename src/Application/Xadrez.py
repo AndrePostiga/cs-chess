@@ -1,9 +1,8 @@
 class Xadrez:
-    None
-    
+    Pass
 
     def gameLoop(self):
-        None
+        Pass
 
     def validarJogada(self):
-        None
+        Pass
