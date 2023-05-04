@@ -1,5 +1,5 @@
 import pytest
-from src.Application.Teste.ClasseParaTestar import ClasseParaTestar
+from src.Application.Test.TestingClass import TestingClass
 
 class TestExample:
 
@@ -21,5 +21,5 @@ class TestExample:
             s.split(2)
 
     def test_classe_para_testar(self):
-        sum = ClasseParaTestar(5, 10)
-        assert (5 + 10) == sum.soma()
+        sum_ = TestingClass(5, 10)
+        assert (5 + 10) == sum_.sum()

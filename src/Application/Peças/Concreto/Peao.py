@@ -1,2 +1,0 @@
-class Peao:
-    pass
