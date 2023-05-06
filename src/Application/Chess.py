@@ -1,8 +1,8 @@
-class Xadrez:
+class Chess:
     pass
 
     def gameLoop(self):
         pass
 
-    def validarJogada(self):
+    def validateMove(self):
         pass

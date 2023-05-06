@@ -1,7 +1,7 @@
-class ClasseParaTestar:
+class TestingClass:
     def __init__(self, a, b):
         self.a = a
         self.b = b
 
-    def soma(self) -> int:
+    def sum(self) -> int:
         return self.a + self.b
