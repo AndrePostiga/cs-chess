@@ -1,6 +1,6 @@
 import pytest
 
-from src.Application.Test.TestingClass import TestingClass
+#from src.Application.Test.TestingClass import TestingClass
 
 class TestExample:
 
