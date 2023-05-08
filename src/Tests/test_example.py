@@ -1,5 +1,7 @@
 import pytest
 
+from src.Application.Test.TestingClass import TestingClass
+
 class TestExample:
 
     # maintain test_ prefix for pytest discovering
