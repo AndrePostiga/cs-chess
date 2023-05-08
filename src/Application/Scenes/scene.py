@@ -1,5 +1,3 @@
-from Lib.image import *
-
 class Scene(object):
     def __init__(self, janela, mouse):
         self.window = janela

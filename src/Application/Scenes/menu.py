@@ -1,4 +1,5 @@
-from .scene import *
+from .scene import Scene
+from Lib.image import Image
 
 class Menu(Scene):
     def __init__(self, janela, mouse):
@@ -18,11 +19,14 @@ class Menu(Scene):
 
     def change_update(self):
         if not(self.wasPressed):
-            if (self.mouse.is_over_object(self.button_play) and self.mouse.is_button_pressed(1)):
+            if (self.mouse.is_over_object(self.button_play) 
+                and self.mouse.is_button_pressed(1)):
                 return 0
-            if (self.mouse.is_over_object(self.button_creditos) and self.mouse.is_button_pressed(1)):
+            if (self.mouse.is_over_object(self.button_creditos) 
+                and self.mouse.is_button_pressed(1)):
                 return 0
-            if (self.mouse.is_over_object(self.button_sair) and self.mouse.is_button_pressed(1)):
+            if (self.mouse.is_over_object(self.button_sair) 
+                and self.mouse.is_button_pressed(1)):
                 return -1
         self.wasPressed = self.mouse.is_button_pressed(1)
         return 0

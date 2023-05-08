@@ -1,6 +1,5 @@
 import pygame
 from . import window
-from pygame.locals import *
 
 pygame.init()
 

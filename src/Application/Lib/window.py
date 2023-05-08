@@ -1,6 +1,6 @@
 import sys
 import pygame
-from pygame.locals import *
+from pygame.locals import QUIT
 from . import mouse
 
 pygame.init()
