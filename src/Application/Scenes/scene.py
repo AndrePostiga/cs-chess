@@ -1,10 +1,9 @@
-from PPlay.sprite import *
+from Lib.image import *
 
 class Scene(object):
-    def __init__(self, janela, mouse, keyboard):
+    def __init__(self, janela, mouse):
         self.window = janela
         self.mouse = mouse
-        self.keyboard = keyboard
 
     def start(self):
         return 0
