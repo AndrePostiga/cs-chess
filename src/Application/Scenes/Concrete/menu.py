@@ -1,4 +1,4 @@
-from .scene import Scene
+from ..scene import Scene
 from Lib.image import Image
 
 class Menu(Scene):
@@ -21,7 +21,7 @@ class Menu(Scene):
         if not(self.wasPressed):
             if (self.mouse.is_over_object(self.button_play) 
                 and self.mouse.is_button_pressed(1)):
-                return 0
+                return 2
             if (self.mouse.is_over_object(self.button_creditos) 
                 and self.mouse.is_button_pressed(1)):
                 return 0

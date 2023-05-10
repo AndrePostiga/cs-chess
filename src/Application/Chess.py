@@ -1,5 +1,5 @@
 from Lib.window import Window
-from Scenes.menu import Menu
+from Scenes.Concrete import menu,game
 class Chess:
     def __init__(self):
         self.window = Window(1080, 600)
@@ -9,10 +9,12 @@ class Chess:
 
     def change_scene(self,scene):
         if scene == 1:
-            self.actual_scene = Menu(self.window, self.mouse)
-            self.actual_scene.start()
+            self.actual_scene = menu.Menu(self.window, self.mouse)
+        elif scene == 2:
+            self.actual_scene = game.Game(self.window, self.mouse)
         else:
             quit()
+        self.actual_scene.start()
 
     def draw(self):
         self.actual_scene.draw()

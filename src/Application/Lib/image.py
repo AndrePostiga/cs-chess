@@ -1,8 +1,6 @@
 import pygame
 from . import window
 
-pygame.init()
-
 class Image():
 
     def __init__(self, image_file):

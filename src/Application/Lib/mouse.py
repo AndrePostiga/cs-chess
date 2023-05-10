@@ -1,7 +1,5 @@
 import pygame
 
-pygame.init()
-
 class Mouse():
     def __init__(self):
         self.BUTTON_LEFT = 1
