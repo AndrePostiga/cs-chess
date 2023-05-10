@@ -6,9 +6,9 @@ class Piece(ABC):
     nMovement = 0
     movementType = ""
 
-    def __init__(self, Xpos: int, Ypos: int):
-        self.Xpos = Xpos
-        self.Ypos = Ypos
+    def __init__(self, x_pos: int, y_pos: int):
+        self.x_pos = x_pos
+        self.y_pos = y_pos
 
     @abstractmethod
     def move(self, table, i, j):
