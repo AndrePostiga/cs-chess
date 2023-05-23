@@ -9,10 +9,10 @@ class Pawn(Piece):
         self.image = Image("../assets/imgs/testassets/pawntest.jpg")
         self.image.set_position(self.center[0], self.center[1])
 
-    # TODO: testar movimentação
+    # mover conforme o prompt
     def move(self, x, y, pieces: list[Piece]) -> Piece:
 
-        # mover conforme o prompt, vou precisar um pouco de ajuda com os códigos
+
         check = self.movepossibilities(pieces)
 
         if check[x][y] == 1:
@@ -45,7 +45,6 @@ class Pawn(Piece):
 
     # manda uma matriz de possibilidades de movimento, uma máscara, para aplicar sobre o tabuleiro, isto é,
     # para pintar quadrados de verde, vermelho, amarelo etc
-    # checked: working
     def movepossibilities(self, pieces: list[Piece]) -> list[list[int]]:
         maskmatrix = self.createmask()
         maskmatrix[self.x][self.y + (1 if self.type == 0 else -1)] = 1
