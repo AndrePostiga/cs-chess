@@ -1,12 +1,13 @@
 from ..scene import Scene
 from Lib.image import Image
+import os
 
 class Menu(Scene):
     def __init__(self, janela, mouse):
         super(Menu, self).__init__(janela, mouse)
-        self.button_play = Image("../assets/imgs/buttons/jogar.png")
-        self.button_creditos = Image("../assets/imgs/buttons/creditos.png")
-        self.button_sair = Image("../assets/imgs/buttons/sair.png")
+        self.button_play = Image(os.path.join("assets", "imgs", "buttons", "jogar.png"))
+        self.button_creditos = Image(os.path.join("assets", "imgs", "buttons", "creditos.png"))
+        self.button_sair = Image(os.path.join("assets", "imgs", "buttons", "sair.png"))
         self.change = 0
         self.wasPressed = True
 
