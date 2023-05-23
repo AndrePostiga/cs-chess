@@ -2,9 +2,14 @@ from ..scene import Scene
 from Lib.image import Image
 import os
 
-BUTTON_PLAY_PATH = os.path.join("assets", "imgs", "buttons", "jogar.png")
-BUTTON_CREDITOS_PATH = os.path.join("assets", "imgs", "buttons", "creditos.png")
-BUTTON_SAIR_PATH = os.path.join("assets", "imgs", "buttons", "sair.png")
+PRJ_FLDR=os.path.dirname(os.path.abspath(__file__))
+
+BUTTON_PLAY_PATH = \
+    os.path.join(PRJ_FLDR, "assets", "imgs", "buttons", "jogar.png")
+BUTTON_CREDITOS_PATH = \
+    os.path.join(PRJ_FLDR, "assets", "imgs", "buttons", "creditos.png")
+BUTTON_SAIR_PATH = \
+    os.path.join(PRJ_FLDR, "assets", "imgs", "buttons", "sair.png")
 
 class Menu(Scene):
     def __init__(self, janela, mouse):
