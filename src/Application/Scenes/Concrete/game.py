@@ -1,9 +1,10 @@
 from ..scene import Scene
 from Lib.tile import Tile
+
 from src.Application.Pieces.Piece import Piece
 import pygame
-
 from src.Application.Pieces.Concrete.Pawn import Pawn
+
 
 
 class Game(Scene):
@@ -19,6 +20,7 @@ class Game(Scene):
         size = (min(self.window.width, self.window.height) - 200) / 8
         posx = (self.window.width - 8 * size) / 2
         posy = (self.window.height - 8 * size) / 2
+
         for i in range(8):
             self.board.append([])
             for j in range(8):
@@ -30,6 +32,7 @@ class Game(Scene):
                     self.pieces.append(Pawn(size / 2, i, j, 0, posx, posy))
                 if j >= 6:
                     self.pieces.append(Pawn(size / 2, i, j, 1, posx, posy))
+
 
     def draw(self):
         self.window.set_background_color(pygame.Color('tan'))
@@ -46,3 +49,4 @@ class Game(Scene):
                         and self.mouse.is_button_pressed(1)):
                     piece.move(piece.x, (piece.y + 1 if piece.type == 0 else piece.y - 1), self.pieces)
         self.wasPressed = False
+

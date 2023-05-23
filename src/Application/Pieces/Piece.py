@@ -1,5 +1,8 @@
+
 from src.Application.Lib.window import Window
+
 import pygame
+
 
 
 class Piece:
@@ -28,9 +31,6 @@ class Piece:
             self.y -= 1
         self.setCenter()
 
-    def setCenter(self):
-        self.center = (self.offSetX + self.radius * ((2 * self.x) + 1), self.offSetY + self.radius * ((2 * self.y) + 1))
-
     @staticmethod
     def createmask():
         mask = []
@@ -39,3 +39,10 @@ class Piece:
             for j in range(8):
                 mask[i].append(-1)
         return mask
+
+    def setCenter(self):
+        self.center = (
+            self.offSetX + self.radius*((2*self.x)+1), 
+            self.offSetY + self.radius*((2*self.y)+1)
+        )
+

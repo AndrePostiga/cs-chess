@@ -1,4 +1,5 @@
 from ..Piece import Piece
+
 from Lib.image import Image
 from src.Application.Lib.window import Window
 
@@ -65,3 +66,4 @@ class Pawn(Piece):
 
     def setCenter(self):
         self.center = (self.offSetX + self.radius * (2 * self.x), self.offSetY + self.radius * (2 * self.y))
+
