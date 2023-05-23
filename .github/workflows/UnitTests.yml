@@ -57,7 +57,7 @@ jobs:
 
       - name: Test with pytest
         run: |
-          pytest --cov=./ --cov-report=xml:coverage-reports/coverage.xml --cov-branch --doctest-modules
+          pytest src/Tests --cov=./ --cov-report=xml:coverage-reports/coverage.xml --cov-branch --doctest-modules
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
