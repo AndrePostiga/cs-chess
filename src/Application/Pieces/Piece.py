@@ -27,4 +27,7 @@ class Piece:
         self.setCenter()
     
     def setCenter(self):
-        self.center = (self.offSetX + self.radius*((2*self.x)+1), self.offSetY + self.radius*((2*self.y)+1))
+        self.center = (
+            self.offSetX + self.radius*((2*self.x)+1), 
+            self.offSetY + self.radius*((2*self.y)+1)
+        )
