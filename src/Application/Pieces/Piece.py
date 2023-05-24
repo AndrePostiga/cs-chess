@@ -11,6 +11,7 @@ class Piece(ABC):
         self.center = None
         self.x = x
         self.y = y
+        self.image = None
         self.offSetX = offSetX
         self.offSetY = offSetY
         self.type = type
@@ -26,7 +27,7 @@ class Piece(ABC):
 
     @abstractmethod
     def draw(self):
-        return NotImplemented
+        pass
 
     # def move(self, x, y, pieces):
     #     if self.type == 0:
@@ -82,5 +83,5 @@ class Piece(ABC):
         return None
 
     @abstractmethod
-    def movepossibilities(self, pieces: list):
+    def movepossibilities(self, pieces: list["Piece"]) -> list[list[int]]:
         return NotImplemented

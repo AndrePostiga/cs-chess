@@ -20,7 +20,7 @@ class Pawn(Piece):
 
     # manda uma matriz de possibilidades de movimento, uma máscara, para aplicar sobre o tabuleiro, isto é,
     # para pintar quadrados de verde, vermelho, amarelo etc
-    def movepossibilities(self, pieces: list[Piece]) -> list[list[int]]:
+    def movepossibilities(self, pieces):
         maskmatrix = self.createmask()
         maskmatrix[self.x][self.y + (1 if self.type == 0 else -1)] = 1
         # vê outras peças no campo; lento
