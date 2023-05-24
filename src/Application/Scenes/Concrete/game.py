@@ -1,7 +1,6 @@
 from ..scene import Scene
 from Lib.tile import Tile
 
-from src.Application.Pieces.Piece import Piece
 import pygame
 from src.Application.Pieces.Concrete.Pawn import Pawn
 

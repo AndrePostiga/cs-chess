@@ -6,7 +6,7 @@ import os
 PRJ_FLDR = os.path.dirname(os.path.abspath(__file__))
 
 PAWN_IMG_PATH = \
-    os.path.join(PRJ_FLDR, "..", "..", "assets", "imgs", "testasset", "pawntest.jpg")
+    os.path.join(PRJ_FLDR, "..", "..", "..", "assets", "imgs", "testassets", "pawntest.jpg")
 
 
 class Pawn(Piece):
@@ -15,37 +15,7 @@ class Pawn(Piece):
         self.image = Image(PAWN_IMG_PATH)
         self.image.set_position(self.center[0], self.center[1])
 
-    # mover conforme o prompt
-    def move(self, x, y, pieces: list[Piece]) -> Piece:
-
-        check = self.movepossibilities(pieces)
-
-        if check[x][y] == 1:
-            self.x = x
-            self.y = y
-
-            self.setCenter()
-            self.image.set_position(self.center[0], self.center[1])
-        elif check[x][y] == 2:
-            self.x = x
-            self.y = y
-
-            #
-            self.setCenter()
-            self.image.set_position(self.center[0], self.center[1])
-            removerpiece = None
-
-            for piece in pieces:
-                if piece.x == self.x and piece.y == self.y:
-                    removerpiece = piece
-            if removerpiece is not None:
-                return removerpiece
-            #
-
-        return None
-
     def draw(self):
-        self.setCenter()
         self.image.draw()
 
     # manda uma matriz de possibilidades de movimento, uma máscara, para aplicar sobre o tabuleiro, isto é,
@@ -68,5 +38,4 @@ class Pawn(Piece):
         maskmatrix[self.x][self.y] = 0
         return maskmatrix
 
-    def setCenter(self):
-        self.center = (self.offSetX + self.radius * (2 * self.x), self.offSetY + self.radius * (2 * self.y))
+
