@@ -42,7 +42,6 @@ class Knight(Piece):
                 mask[piece.x][piece.y] = -2
 
         mask[self.x][self.y] = 0
-        mask[self.x + -2][self.y - 1] = 1
         return mask
 
     def draw(self):
