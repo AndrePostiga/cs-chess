@@ -1,18 +1,22 @@
 from ..Piece import Piece
 
 from Lib.image import Image
-from src.Application.Lib.window import Window
+import os
+
+PRJ_FLDR = os.path.dirname(os.path.abspath(__file__))
+
+PAWN_IMG_PATH = \
+    os.path.join(PRJ_FLDR, "..", "..", "assets", "imgs", "testasset", "pawntest.jpg")
 
 
 class Pawn(Piece):
     def __init__(self, radius, x=0, y=0, ptype=0, offSetX=0, offSetY=0):
         super().__init__(radius, x, y, ptype, offSetX, offSetY)
-        self.image = Image("../assets/imgs/testassets/pawntest.jpg")
+        self.image = Image(PAWN_IMG_PATH)
         self.image.set_position(self.center[0], self.center[1])
 
     # mover conforme o prompt
     def move(self, x, y, pieces: list[Piece]) -> Piece:
-
 
         check = self.movepossibilities(pieces)
 
@@ -66,4 +70,3 @@ class Pawn(Piece):
 
     def setCenter(self):
         self.center = (self.offSetX + self.radius * (2 * self.x), self.offSetY + self.radius * (2 * self.y))
-

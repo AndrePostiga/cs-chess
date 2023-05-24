@@ -1,5 +1,12 @@
-from src.Application.Pieces.Piece import Piece
+from ..Piece import Piece
 
+from Lib.image import Image
+import os
+
+PRJ_FLDR=os.path.dirname(os.path.abspath(__file__))
+
+KNT_IMG_PATH = \
+    os.path.join(PRJ_FLDR, "assets", "imgs", "testasset", "pawntest.jpg")
 
 class Knight (Piece):
     def __init__(self, x_pos: int, y_pos: int):
