@@ -1,15 +1,8 @@
-from Pieces.Piece import Piece
-
-from Lib.image import Image
-import os
-
-PRJ_FLDR = os.path.dirname(os.path.abspath(__file__))
-
-ROK_IMG_PATH = \
-    os.path.join(PRJ_FLDR, "..", "..", "..", "assets", "imgs", "testasset", "rooktest.jpg")
+from src.Application.Pieces.Piece import Piece
 
 
 class Rook(Piece):
+
     def __init__(self, radius, x=0, y=0, ptype=0, offSetX=0, offSetY=0):
         super().__init__(radius, x, y, ptype, offSetX, offSetY)
         self.image = Image(ROK_IMG_PATH)
@@ -54,14 +47,4 @@ class Rook(Piece):
     def draw(self):
         self.image.draw()
 
-    def fillRest(self, matriz, posicao: tuple, direcao):
-        if(posicao[0] > 7 or posicao[0] < 0) or (posicao[1] > 7 or posicao[1] < 0):
-            return
-        if(not(matriz[posicao[0]][posicao[1]] == -2)):
-            matriz[posicao[0]][posicao[1]] = -1
-        
-        if(direcao % 2 == 0):
-            self.fillRest(matriz, (posicao[0] + direcao / 2, posicao[1]), direcao)
-        else:
-            self.fillRest(matriz, (posicao[0], posicao[1] + direcao), direcao)
-        
+
