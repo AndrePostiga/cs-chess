@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from Lib.window import Window
+from src.Application.Lib.window import Window
 
 import pygame
 
