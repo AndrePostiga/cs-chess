@@ -16,10 +16,6 @@ class Pawn(Piece):
         self.image.set_position(self.center[0], self.center[1])
         self.firstplay = True
 
-
-    def draw(self):
-        self.image.draw()
-
     # manda uma matriz de possibilidades de movimento, uma máscara, para aplicar sobre o tabuleiro, isto é,
     # para pintar quadrados de verde, vermelho, amarelo etc
     def movepossibilities(self, pieces):

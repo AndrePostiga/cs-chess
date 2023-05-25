@@ -8,8 +8,6 @@ KNG_IMG_PATH = \
 
 
 class King(Piece):
-    def draw(self):
-        self.image.draw()
 
     def movepossibilities(self, pieces: list["Piece"]) -> list[list[int]]:
         mask = self.createmask()

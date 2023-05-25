@@ -45,5 +45,3 @@ class Knight(Piece):
         mask[self.x][self.y] = 0
         return mask
 
-    def draw(self):
-        self.image.draw()
