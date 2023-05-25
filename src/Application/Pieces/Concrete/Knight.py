@@ -6,10 +6,11 @@ import os
 PRJ_FLDR = os.path.dirname(os.path.abspath(__file__))
 
 KNT_IMG_PATH = \
-    os.path.join(PRJ_FLDR, "..", "..", "..", "assets", "imgs", "testasset", "pawntest.jpg")
+    os.path.join(PRJ_FLDR, "..", "..", "..", "assets", "imgs", "testasset", "kingtest.jpg")
 
 
 class Knight(Piece):
+
     def __init__(self, radius, x=0, y=0, ptype=0, offSetX=0, offSetY=0):
         super().__init__(radius, x, y, ptype, offSetX, offSetY)
         self.image = Image(KNT_IMG_PATH)
@@ -17,7 +18,7 @@ class Knight(Piece):
 
     def inbounds(self, name, i) -> bool:
         # TODO: alguém testa isso pra mim?
-        if 7 > getattr(self, f"self.{name}") + i > 0:
+        if 7 > getattr(self, name) + i > 0:
             return False
         else:
             return True
