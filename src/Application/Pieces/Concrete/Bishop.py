@@ -1,4 +1,4 @@
-from src.Application.Pieces.Piece import Piece
+from ..Piece import Piece
 
 
 class Bishop(Piece):

@@ -7,7 +7,7 @@ import pygame
 
 class Piece(ABC):
 
-    def __init__(self, radius, x=0, y=0, type=0, offSetX=0, offSetY=0):
+    def __init__(self, radius, x:int, y:int, type=0, offSetX=0, offSetY=0):
         self.center = None
         self.x = x
         self.y = y
@@ -25,9 +25,8 @@ class Piece(ABC):
     # def draw(self):
     #     pygame.draw.circle(Window.get_screen(), self.color, self.center, self.radius)
 
-    @abstractmethod
     def draw(self):
-        pass
+        self.image.draw()
 
     # def move(self, x, y, pieces):
     #     if self.type == 0:
