@@ -25,16 +25,6 @@ class Rook(Piece):
     def movepossibilities(self, pieces: list[Piece]) -> list[list[int]]:
         mask = self.createmask()
 
-       #for i in [-2, +2]:
-       #    if self.inbounds("x", i):
-       #        for j in [-1, 1]:
-       #            if self.inbounds("y", j):
-       #                mask[self.x + i][self.y + j] = 1
-       #    if self.inbounds("y", i):
-       #        for j in [-1, 1]:
-       #            if self.inbounds("x", j):
-       #                mask[self.x + i][self.y + j] = 1
-
         for piece in pieces:
             if (piece.x == self.x or piece.y == self.y) and self.type != piece.type:
                 mask[piece.x][piece.y] = 2
