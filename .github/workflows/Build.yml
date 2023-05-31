@@ -92,8 +92,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-  GenerateDist:
-    name: Scan With Sonar Cloud
+  GenerateReleaseDistPreview:
+    name: Generate Release Preview Distribution
     needs: SonarCloudScan
     runs-on: windows-latest
     if: contains(github.ref, 'release')
@@ -124,10 +124,10 @@ jobs:
           name: compiled-game-artifact
           path: src\Application\dist
   
-  CreateRelease:
-    name: Create Release
+  CreateReleasePreview:
+    name: Create Release Preview
     runs-on: ubuntu-latest
-    needs: GenerateDist
+    needs: GenerateReleaseDistPreview
 
     steps:
       - uses: actions/download-artifact@v3
@@ -139,7 +139,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            dist/*
+            cs-chess/dist/*
           tag_name: ${{ env.RELEASE_VERSION }}
           name: Release Preview - ${{ env.RELEASE_VERSION }}
           body: This is a preview of the release ${{ env.RELEASE_VERSION }}.
