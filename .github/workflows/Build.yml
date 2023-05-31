@@ -3,7 +3,7 @@ name: CI
 on: [push]
 
 env:
-  RELEASE_VERSION:  sed -E 's/.*\/([0-9]+\.[0-9]+\.[0-9]+)$/\1/' <<< ${{ github.ref }}
+  RELEASE_VERSION: ${{ github.ref }}
 
 jobs:
   # BuildAndLint:
@@ -140,6 +140,9 @@ jobs:
           name: compiled-game-artifact
           path: dist/
 
+      - name: Generate Tag Number
+        run: echo VERSION=$(sed -E 's/.*\/([0-9]+\.[0-9]+\.[0-9]+)$/\1/' <<< $RELEASE_VERSION) >> $GITHUB_ENV
+
       - name: run
         run: ls
   
@@ -150,8 +153,8 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            dist/*
-          tag_name: ${{ env.RELEASE_VERSION }}
-          name: Release Preview - ${{ env.RELEASE_VERSION }}
-          body: This is a preview of the release ${{ env.RELEASE_VERSION }}.
+            dist/chess/*
+          tag_name: ${{ env.VERSION }}
+          name: Release Preview - ${{ env.VERSION }}
+          body: This is a preview of the release ${{ env.VERSION }}.
           prerelease: true
