@@ -1,11 +1,11 @@
-name: Python package
+name: GenereteDist
 
 on:
   push:
     branches:
       - 'release/*'
   workflow_run:
-    workflows: ["UnitTests.yml"]
+    workflows: ["Build"]
     types: [completed]
     branches:
       - 'release/**'
@@ -33,7 +33,7 @@ jobs:
       - name: Install App Dependencies
         run: |
           python -m pip install --upgrade pip
-          if exist src\Application\requirements.txt pip install -r src\Application\requirements.txt
+          if (Test-Path "src\Application\requirements.txt" { pip install -r src\Application\requirements.txt }
 
       - name: Generate dist folder
         run: python src\Application\build_windows_script.py
