@@ -128,7 +128,8 @@ jobs:
     name: Create Release Preview
     runs-on: ubuntu-latest
     needs: GenerateReleaseDistPreview
-
+    permissions:
+      contents: write
     
     steps:
       - name: Checkout code
