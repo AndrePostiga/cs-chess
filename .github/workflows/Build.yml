@@ -140,6 +140,11 @@ jobs:
         with:
           name: compiled-game-artifact
           path: dist/
+      
+      - name: Zip Dist File
+        uses: montudor/action-zip@v1
+        with:
+          args: zip -qq -r chess.zip dist/chess
 
       - name: Generate Tag Number
         run: echo VERSION=$(sed -E 's/.*\/([0-9]+\.[0-9]+\.[0-9]+)$/\1/' <<< $RELEASE_VERSION) >> $GITHUB_ENV
@@ -154,8 +159,8 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            dist/chess/*
-          tag_name: ${{ env.VERSION }}
+            chess.zip
+          #tag_name: ${{ env.VERSION }}
           name: Release Preview - ${{ env.VERSION }}
           body: This is a preview of the release ${{ env.VERSION }}.
           prerelease: true
