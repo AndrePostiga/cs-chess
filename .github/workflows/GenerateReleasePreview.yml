@@ -6,8 +6,9 @@ on:
       - 'release/*'
   workflow_run:
     workflows: ["UnitTests.yml"]
-    types:
-      - completed
+    types: [completed]
+    branches:
+      - 'release/**'
 
 env:
   RELEASE_VERSION: ${{ github.ref }}
