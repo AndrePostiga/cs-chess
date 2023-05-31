@@ -5,7 +5,7 @@ on:
     workflows: ["Build"]
     types: [completed]
     branches:
-      - 'release/**'
+      - 'release/*'
 
 env:
   RELEASE_VERSION: ${{ github.ref }}
