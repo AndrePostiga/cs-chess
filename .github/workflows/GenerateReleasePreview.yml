@@ -1,9 +1,10 @@
-name: GenereteDist
+name: GenereteReleasePreview
 
 on:
   workflow_run:
     workflows: ["Build"]
-    types: [completed]
+    types: 
+      - completed
     branches:
       - 'release/*'
 
