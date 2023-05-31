@@ -1,6 +1,9 @@
-name: Build
+name: CI
 
 on: [push]
+
+env:
+  RELEASE_VERSION: ${{ github.ref }}
 
 jobs:
   BuildAndLint:
@@ -88,3 +91,56 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  GenerateDist:
+    name: Scan With Sonar Cloud
+    needs: SonarCloudScan
+    runs-on: windows-latest
+    if: contains(github.ref, 'release')
+    strategy:
+      matrix:
+        python-version: [ "3.11" ]
+
+    steps:
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install App Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if (Test-Path "src\Application\requirements.txt") { pip install -r src\Application\requirements.txt }
+
+      - name: Generate dist folder
+        run: python src\Application\build_windows_script.py
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: compiled-game-artifact
+          path: src\Application\dist
+  
+  CreateRelease:
+    name: Create Release
+    runs-on: ubuntu-latest
+    needs: GenerateDist
+
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: compiled-game-artifact
+          path: dist/
+
+      - name: Create release preview
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            dist/*
+          tag_name: ${{ env.RELEASE_VERSION }}
+          name: Release Preview - ${{ env.RELEASE_VERSION }}
+          body: This is a preview of the release ${{ env.RELEASE_VERSION }}.
+          prerelease: true
