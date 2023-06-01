@@ -33,8 +33,12 @@ class Rook(Piece):
                 if 0 <= self.x + i * count <= 7:
                     if (mask[self.x + i * count][self.y] == -2) \
                             or (mask[self.x + i * count][self.y] == 2):
-                        self.fillRest(mask, (self.x + i * count + 1, self.y), 2 * i)
+                        self.fillRest(mask, self.x + i * (count + 1), self.y, 2 * i)
                         break
+                    mask[self.x + i * count][self.y] = 1
+                    count = count + 1
+                else:
+                    break
 
             # Para y segundo
             count = 1
@@ -42,19 +46,25 @@ class Rook(Piece):
                 if 0 <= self.y + i * count <= 7:
                     if (mask[self.x][self.y + i * count] == -2) \
                             or (mask[self.x][self.y + i * count] == 2):
-                        self.fillRest(mask, (self.x, self.y + i * count + 1), i)
+                        self.fillRest(mask, self.x, self.y + i * (count + 1), i)
                         break
+                    mask[self.x][self.y + i * count] = 1
+                    count = count + 1
+                else:
+                    break
 
         mask[self.x][self.y] = 0
         return mask
 
-    def fillRest(self, matriz, posicao: tuple, direcao: int):
-        if (posicao[0] > 7 or posicao[0] < 0) or (posicao[1] > 7 or posicao[1] < 0):
+    def fillRest(self, matriz, posix, posiy, direcao: int):
+        if (posix > 7 or posix < 0) or (posiy > 7 or posiy < 0):
             return
-        if not (matriz[posicao[0]][posicao[1]] == -2):
-            matriz[posicao[0]][posicao[1]] = -1
+        if not (matriz[posix][posiy] == -2):
+            matriz[posix][posiy] = -1
 
         if direcao % 2 == 0:
-            self.fillRest(matriz, (posicao[0] + direcao / 2, posicao[1]), direcao)
+            dire = int(direcao / 2)
+
+            self.fillRest(matriz, posix + dire, posiy, direcao)
         else:
-            self.fillRest(matriz, (posicao[0], posicao[1] + direcao), direcao)
+            self.fillRest(matriz, posix, posiy + direcao, direcao)

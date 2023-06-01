@@ -5,15 +5,15 @@ import os
 
 PRJ_FLDR = os.path.dirname(os.path.abspath(__file__))
 
-BSP_IMG_PATH = \
+QUE_IMG_PATH = \
     os.path.join(PRJ_FLDR, "..", "..", "..", "assets", "imgs",
-                 "testasset", "bishoptest.jpg")
+                 "testassets", "queentest.jpg")
 
 
 class Queen(Piece):
     def __init__(self, radius, x=0, y=0, ptype=0, offSetX=0, offSetY=0):
         super().__init__(radius, x, y, ptype, offSetX, offSetY)
-        self.image = Image(BSP_IMG_PATH)
+        self.image = Image(QUE_IMG_PATH)
         self.image.set_position(self.center[0], self.center[1])
 
     def haspiece(self, x, y, pieces):
@@ -25,16 +25,18 @@ class Queen(Piece):
                     return -2
         return None
 
-    def fillRest(self, matriz, posicao: tuple, direcao: int):
-        if (posicao[0] > 7 or posicao[0] < 0) or (posicao[1] > 7 or posicao[1] < 0):
+    def fillRest(self, matriz, posix, posiy, direcao: int):
+        if (posix > 7 or posix < 0) or (posiy > 7 or posiy < 0):
             return
-        if not (matriz[posicao[0]][posicao[1]] == -2):
-            matriz[posicao[0]][posicao[1]] = -1
+        if not (matriz[posix][posiy] == -2):
+            matriz[posix][posiy] = -1
 
         if direcao % 2 == 0:
-            self.fillRest(matriz, (posicao[0] + direcao / 2, posicao[1]), direcao)
+            dire = int(direcao / 2)
+
+            self.fillRest(matriz, posix + dire, posiy, direcao)
         else:
-            self.fillRest(matriz, (posicao[0], posicao[1] + direcao), direcao)
+            self.fillRest(matriz, posix, posiy + direcao, direcao)
 
     def calculatediagon(self, dirx, diry, mask, pieces):
         i = 0 + dirx
@@ -71,8 +73,12 @@ class Queen(Piece):
                 if 0 <= self.x + i * count <= 7:
                     if (mask[self.x + i * count][self.y] == -2) \
                             or (mask[self.x + i * count][self.y] == 2):
-                        self.fillRest(mask, (self.x + i * count + 1, self.y), 2 * i)
+                        self.fillRest(mask, self.x + i * (count + 1), self.y, 2 * i)
                         break
+                    mask[self.x + i * count][self.y] = 1
+                    count = count + 1
+                else:
+                    break
 
             # Para y segundo
             count = 1
@@ -80,8 +86,12 @@ class Queen(Piece):
                 if 0 <= self.y + i * count <= 7:
                     if (mask[self.x][self.y + i * count] == -2) \
                             or (mask[self.x][self.y + i * count] == 2):
-                        self.fillRest(mask, (self.x, self.y + i * count + 1), i)
+                        self.fillRest(mask, self.x, self.y + i * (count + 1), i)
                         break
+                    mask[self.x][self.y + i * count] = 1
+                    count = count + 1
+                else:
+                    break
 
         # parte bispo
 
