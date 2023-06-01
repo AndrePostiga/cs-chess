@@ -26,7 +26,8 @@ class Game(Scene):
                 color = pygame.Color('white')
                 if (i + j) % 2 != 0:
                     color = pygame.Color('black')
-                self.board[i].append(Tile(size, size, posx + size * i, posy + size * j, color))
+                self.board[i].append(Tile(size, size, posx +
+                                          size * i, posy + size * j, color))
                 if j <= 1:
                     self.pieces.append(Pawn(size / 2, i, j, 0, posx, posy))
                 if j >= 6:
@@ -46,6 +47,7 @@ class Game(Scene):
             for piece in self.pieces:
                 if (self.mouse.is_over_object(self.board[piece.x][piece.y])
                         and self.mouse.is_button_pressed(1)):
-                    piece.move(piece.x, (piece.y + 1 if piece.type == 0 else piece.y - 1), self.pieces)
+                    piece.move(piece.x, (piece.y + 1 if piece.type == 0
+                                         else piece.y - 1), self.pieces)
         self.wasPressed = False
 

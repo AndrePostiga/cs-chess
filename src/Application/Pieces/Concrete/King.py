@@ -4,7 +4,8 @@ import os
 
 PRJ_FLDR = os.path.dirname(os.path.abspath(__file__))
 KNG_IMG_PATH = \
-    os.path.join(PRJ_FLDR, "..", "..", "..", "assets", "imgs", "testasset", "kingtest.jpg")
+    os.path.join(PRJ_FLDR, "..", "..", "..", "assets", "imgs",
+                 "testasset", "kingtest.jpg")
 
 
 class King(Piece):

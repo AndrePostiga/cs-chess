@@ -1,7 +1,5 @@
 from abc import ABC, abstractmethod
 
-from src.Application.Lib.window import Window
-
 import pygame
 
 
@@ -45,7 +43,8 @@ class Piece(ABC):
         return mask
 
     def setCenter(self):
-        self.center = (self.offSetX + self.radius * (2 * self.x), self.offSetY + self.radius * (2 * self.y))
+        self.center = (self.offSetX + self.radius * (2 * self.x),
+                       self.offSetY + self.radius * (2 * self.y))
 
     # def setCenter(self):
     #     self.center = (

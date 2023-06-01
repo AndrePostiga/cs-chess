@@ -6,7 +6,8 @@ import os
 PRJ_FLDR = os.path.dirname(os.path.abspath(__file__))
 
 PAWN_IMG_PATH = \
-    os.path.join(PRJ_FLDR, "..", "..", "..", "assets", "imgs", "testassets", "pawntest.jpg")
+    os.path.join(PRJ_FLDR, "..", "..", "..", "assets",
+                 "imgs", "testassets", "pawntest.jpg")
 
 
 class Pawn(Piece):
@@ -16,7 +17,8 @@ class Pawn(Piece):
         self.image.set_position(self.center[0], self.center[1])
         self.firstplay = True
 
-    # manda uma matriz de possibilidades de movimento, uma máscara, para aplicar sobre o tabuleiro, isto é,
+    # manda uma matriz de possibilidades de movimento,
+    # uma máscara, para aplicar sobre o tabuleiro, isto é,
     # para pintar quadrados de verde, vermelho, amarelo etc
     def movepossibilities(self, pieces):
         maskmatrix = self.createmask()

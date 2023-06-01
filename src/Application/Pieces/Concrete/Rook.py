@@ -6,7 +6,8 @@ from Lib.image import Image
 PRJ_FLDR = os.path.dirname(os.path.abspath(__file__))
 
 ROK_IMG_PATH = \
-    os.path.join(PRJ_FLDR, "..", "..", "..", "assets", "imgs", "testassets", "rooktest.jpg")
+    os.path.join(PRJ_FLDR, "..", "..", "..", "assets",
+                 "imgs", "testassets", "rooktest.jpg")
 
 
 class Rook(Piece):
@@ -30,7 +31,8 @@ class Rook(Piece):
             count = 1
             while True:
                 if 0 <= self.x + i * count <= 7:
-                    if (mask[self.x + i * count][self.y] == -2) or (mask[self.x + i * count][self.y] == 2):
+                    if (mask[self.x + i * count][self.y] == -2) \
+                            or (mask[self.x + i * count][self.y] == 2):
                         self.fillRest(mask, (self.x + i * count + 1, self.y), 2 * i)
                         break
 
@@ -38,7 +40,8 @@ class Rook(Piece):
             count = 1
             while True:
                 if 0 <= self.y + i * count <= 7:
-                    if (mask[self.x][self.y + i * count] == -2) or (mask[self.x][self.y + i * count] == 2):
+                    if (mask[self.x][self.y + i * count] == -2) \
+                            or (mask[self.x][self.y + i * count] == 2):
                         self.fillRest(mask, (self.x, self.y + i * count + 1), i)
                         break
 
