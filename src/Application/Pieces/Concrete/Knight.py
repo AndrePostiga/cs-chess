@@ -53,4 +53,3 @@ class Knight(Piece):
 
         mask[self.x][self.y] = 0
         return mask
-

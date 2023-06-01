@@ -1,5 +1,4 @@
 from ..Piece import Piece
-
 from Lib.image import Image
 import os
 
