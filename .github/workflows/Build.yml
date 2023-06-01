@@ -164,7 +164,8 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            *.zip          
+            *.zip 
+          tag_name: ${{ env.VERSION }}         
           name: Release Preview - ${{ env.VERSION }}
           body: This is a preview of the release ${{ env.VERSION }}.
           prerelease: true
