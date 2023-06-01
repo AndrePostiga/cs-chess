@@ -1,6 +1,9 @@
-name: Python package
+name: CI
 
 on: [push]
+
+env:
+  RELEASE_VERSION: ${{ github.ref }}
 
 jobs:
   BuildAndLint:
