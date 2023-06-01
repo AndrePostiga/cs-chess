@@ -5,15 +5,22 @@ import os
 
 PRJ_FLDR = os.path.dirname(os.path.abspath(__file__))
 
-BSP_IMG_PATH = \
-    os.path.join(PRJ_FLDR, "..", "..", "..", "assets", "imgs",
-                 "testassets", "bishoptest.jpg")
+BSP_IMG_PATH_W = \
+    os.path.join(PRJ_FLDR, "..", "..", "..", "assets",
+                 "imgs", "testassets", "Chess_blt60.png")
+
+BSP_IMG_PATH_B = \
+    os.path.join(PRJ_FLDR, "..", "..", "..", "assets",
+                 "imgs", "testassets", "Chess_bdt60.png")
 
 
 class Bishop(Piece):
     def __init__(self, radius, x=0, y=0, ptype=0, offSetX=0, offSetY=0):
         super().__init__(radius, x, y, ptype, offSetX, offSetY)
-        self.image = Image(BSP_IMG_PATH)
+        if self.type == 1:
+            self.image = Image(BSP_IMG_PATH_W)
+        else:
+            self.image = Image(BSP_IMG_PATH_B)
         self.image.set_position(self.center[0], self.center[1])
 
     def haspiece(self, x, y, pieces):
