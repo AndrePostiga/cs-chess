@@ -153,7 +153,7 @@ jobs:
       - name: Zip Dist File
         uses: montudor/action-zip@v1
         with:
-          args: zip -qq -r chess.zip dist/chess
+          args: zip -qq -r dir.zip dir
 
       - name: Create release preview
         uses: softprops/action-gh-release@v1
