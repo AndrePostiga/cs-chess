@@ -5,16 +5,23 @@ from Lib.image import Image
 
 PRJ_FLDR = os.path.dirname(os.path.abspath(__file__))
 
-ROK_IMG_PATH = \
-    os.path.join(PRJ_FLDR, "..", "..", "..", "assets",
-                 "imgs", "testassets", "rooktest.jpg")
 
+ROK_IMG_PATH_W = \
+    os.path.join(PRJ_FLDR, "..", "..", "..", "assets",
+                 "imgs", "testassets", "Chess_rlt60.png")
+
+ROK_IMG_PATH_B = \
+    os.path.join(PRJ_FLDR, "..", "..", "..", "assets",
+                 "imgs", "testassets", "Chess_rdt60.png")
 
 class Rook(Piece):
 
     def __init__(self, radius, x=0, y=0, ptype=0, offSetX=0, offSetY=0):
         super().__init__(radius, x, y, ptype, offSetX, offSetY)
-        self.image = Image(ROK_IMG_PATH)
+        if self.type == 1:
+            self.image = Image(ROK_IMG_PATH_W)
+        else:
+            self.image = Image(ROK_IMG_PATH_B)
         self.image.set_position(self.center[0], self.center[1])
 
     def movepossibilities(self, pieces: list[Piece]) -> list[list[int]]:

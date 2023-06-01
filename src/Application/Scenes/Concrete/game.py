@@ -20,7 +20,7 @@ class Game(Scene):
         self.wasPressed = True
 
     def start(self):
-        size = (min(self.window.width, self.window.height) - 200) / 8
+        size = 60
         posx = (self.window.width - 8 * size) / 2
         posy = (self.window.height - 8 * size) / 2
         self.appendspecials(size, posx, posy, 0)
@@ -30,7 +30,7 @@ class Game(Scene):
             for j in range(8):
                 color = pygame.Color('white')
                 if (i + j) % 2 != 0:
-                    color = pygame.Color('black')
+                    color = pygame.Color('chocolate4')
                 self.board[i].append(Tile(size, size, posx +
                                           size * i, posy + size * j, color))
                 if j == 1:
@@ -49,6 +49,9 @@ class Game(Scene):
             piece.draw()
 
     def update(self):
+        size = (min(self.window.width, self.window.height) - 200) / 8
+        posx = (self.window.width - 8 * size) / 2
+        posy = (self.window.height - 8 * size) / 2
         if not self.wasPressed:
             for piece in self.pieces:
                 if (self.mouse.is_over_object(self.board[piece.x][piece.y])
