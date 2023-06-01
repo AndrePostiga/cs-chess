@@ -12,7 +12,6 @@ jobs:
   GenerateRelease:
     name: Generate Release Preview Distribution
     runs-on: windows-latest
-    if: contains(github.ref, 'release')
     strategy:
       matrix:
         python-version: [ "3.11" ]
