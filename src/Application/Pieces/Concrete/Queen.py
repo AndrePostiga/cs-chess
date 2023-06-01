@@ -92,5 +92,3 @@ class Queen(Piece):
 
         mask[self.x][self.y] = 0
         return mask
-
-        pass
