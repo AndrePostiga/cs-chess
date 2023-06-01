@@ -42,7 +42,8 @@ class Queen(Piece):
         # loop1
         while True:
             if ((self.x + i) > 7) or ((self.y + j) > 7) \
-                    or ((self.x + i) < 0) or ((self.y + j) < 0): break
+                    or ((self.x + i) < 0) or ((self.y + j) < 0):
+                break
             a = self.haspiece(self.x + i, self.y + j, pieces)
             if a is None:
                 mask[self.x + i][self.y + j] = 1
