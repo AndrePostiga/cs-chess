@@ -62,7 +62,7 @@ class Piece(ABC):
 
             self.setCenter()
             self.image.set_position(self.center[0], self.center[1])
-            return None
+            return None, 1
         elif check[x][y] == 2:
             removingpiece = None
             for piece in pieces:
@@ -75,8 +75,9 @@ class Piece(ABC):
             #
             self.setCenter()
             self.image.set_position(self.center[0], self.center[1])
-            return removingpiece
+            return removingpiece, 1
             #
+        else: return(None, 0)
 
     @abstractmethod
     def movepossibilities(self, pieces: list["Piece"]) -> list[list[int]]:
