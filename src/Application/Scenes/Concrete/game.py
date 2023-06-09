@@ -96,7 +96,8 @@ class Game(Scene):
                 if not self.wasPressed:
                     for piece in self.pieces:
                         if (self.mouse.is_over_object(self.board[piece.x][piece.y])
-                                and self.mouse.is_button_pressed(1) and piece.type != self.turn):
+                                and self.mouse.is_button_pressed(1)
+                                and piece.type != self.turn):
                             self.choicepiece = piece
                             self.choice = piece.movepossibilities(self.pieces)
                             self.wasPressed = True
@@ -178,11 +179,13 @@ class Game(Scene):
             posx = (self.window.width - 8 * self.size) / 2
             posy = (self.window.height - 8 * self.size) / 2
             if elem.type == 0 and elem.y == 7:
-                self.pieces.append(Queen(elem.radius,elem.x,elem.y,elem.type, posx, posy))
+                self.pieces.append(Queen(elem.radius,elem.x,
+                                         elem.y,elem.type, posx, posy))
                 self.pieces.remove(elem)
             if elem.type == 1 and elem.y == 0:
                 #TODO: abrir caixa de dialogo pokemon estilo red
-                self.pieces.append(Queen(elem.radius, elem.x, elem.y, elem.type, posx, posy))
+                self.pieces.append(Queen(elem.radius, elem.x,
+                                         elem.y, elem.type, posx, posy))
                 self.pieces.remove(elem)
 
 
