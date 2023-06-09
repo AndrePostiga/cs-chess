@@ -22,7 +22,6 @@ class Pawn(Piece):
         else:
             self.image = Image(PAWN_IMG_PATH_B)
         self.image.set_position(self.center[0], self.center[1])
-        self.firstplay = True
 
     # manda uma matriz de possibilidades de movimento,
     # uma máscara, para aplicar sobre o tabuleiro, isto é,

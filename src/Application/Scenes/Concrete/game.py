@@ -148,6 +148,9 @@ class Game(Scene):
                             self.board[i][j].set_color('green')
                         case 2:
                             self.board[i][j].set_color('blue')
+                        case 3:
+                            self.board[i][j].set_color('purple')
+################
                         case -1:
                             None
                             # self.board[i][j].set_color('red')
@@ -169,8 +172,6 @@ class Game(Scene):
                     self.board[i][j].set_color('white')
                     if (i + j) % 2 != 0:
                         self.board[i][j].set_color('chocolate4')
-
-            # TODO: Vai ter que otimizar
 
     def check_promot(self, elem):
         if isinstance(elem, Pawn):
