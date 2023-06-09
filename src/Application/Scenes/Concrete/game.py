@@ -57,25 +57,26 @@ class Game(Scene):
             self.turn = 0
 
         ##hora dos estados
-        if self.turn:
-            if self.choice:
+        if self.turn == 0:
+            if (self.choice is not None) and (self.choicepiece is not None):
                 # minha vez e e eu escolhi a peça
-                if self.mouse.is_button_pressed(2):
+                if self.mouse.is_button_pressed(3):
                     self.choice = None
+                    self.choicepiece = None
                 else:
                     if not self.wasPressed:
                         for lane in self.board:
                             for block in lane:
-                                if (self.mouse.is_over_object(self.board[self.board.index(lane)][self.board.index(block)])
+                                if (self.mouse.is_over_object(block)
                                         and self.mouse.is_button_pressed(1)):
 
-                                    enemydefeat, possiblemove = self.choicepiece.move()
-                                    if possiblemove:
-                                        #TODO joga o inimigo fora aqui
+                                    enemydefeat, hasmoved = self.choicepiece.move(self.board.index(lane),lane.index(block),self.pieces)
+                                    if hasmoved:
+                                        #TODO joga a peca fora aqui
                                         #
                                         self.turn = 1
                                         self.choice = None
-
+                                        self.choicepiece = None
 
                                 self.wasPressed = True
                     else:
@@ -91,7 +92,7 @@ class Game(Scene):
                         if (self.mouse.is_over_object(self.board[piece.x][piece.y])
                                 and self.mouse.is_button_pressed(1)):
                             self.choicepiece = piece
-                            self.choice = piece.movepossibilities()
+                            self.choice = piece.movepossibilities(self.pieces)
                             self.wasPressed = True
                 else:
                     if not self.mouse.is_button_pressed(1):
@@ -102,18 +103,8 @@ class Game(Scene):
 
 
     def update(self):
-
-        if not self.wasPressed:
-            for piece in self.pieces:
-                if (self.mouse.is_over_object(self.board[piece.x][piece.y])
-                        and self.mouse.is_button_pressed(1)):
-                    piece.move(piece.x, (piece.y + 1 if piece.type == 0
-                                         else piece.y - 1), self.pieces)
-                    self.wasPressed = True
-        #consertar click de mouse
-        else:
-            if not self.mouse.is_button_pressed(1):
-                self.wasPressed = False
+        self.statemachine()
+        self.maskboard(self.choice)
     def appendspecials(self, size, posx, posy, col):
         if col == 0:
             self.pieces.append(Rook(size / 2, 0, 0, 0, posx, posy))
@@ -138,5 +129,6 @@ class Game(Scene):
     def mouseclickverifier(self, function):
         pass
     def maskboard(self, mask):
+        #TODO: help here wanted
         # colorir a matriz aqui
-        None
+        #

@@ -47,10 +47,3 @@ class Pawn(Piece):
                 maskmatrix[piece.x][piece.y] = -2
         maskmatrix[self.x][self.y] = 0
         return maskmatrix
-
-    def move(self, x, y, pieces):
-        o = super().move(x, y, pieces)
-        if self.firstplay:
-            self.firstplay = False
-
-        return o
