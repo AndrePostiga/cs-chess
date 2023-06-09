@@ -22,6 +22,8 @@ class Piece(ABC):
 
         self.firstplay = True
 
+        self.dead = False
+
     # def draw(self):
     #     pygame.draw.circle(Window.get_screen(), self.color, self.center, self.radius)
 
