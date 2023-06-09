@@ -15,7 +15,6 @@ KNT_IMG_PATH_B = \
 
 
 def inbounds(attr, i) -> bool:
-    # TODO: alguém testa isso pra mim?
     if 7 >= attr + i >= 0:
         return True
     else:

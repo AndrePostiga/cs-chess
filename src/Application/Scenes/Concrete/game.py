@@ -77,8 +77,10 @@ class Game(Scene):
                                         self.board.index(lane),
                                         lane.index(block), self.pieces)
                                     if hasmoved:
-                                        # TODO joga a peca fora aqui
+                                        if enemydefeat is not None:
+                                            self.pieces.remove(enemydefeat)
                                         self.turn = 1
+                                        self.check_promot(self.choicepiece)
                                         self.choice = None
                                         self.choicepiece = None
 
@@ -107,7 +109,6 @@ class Game(Scene):
 
     def update(self):
         self.statemachine()
-        self.check_promot()
         self.maskboard()
 
     def appendspecials(self, posx, posy, col):
@@ -155,6 +156,7 @@ class Game(Scene):
                             # self.board[i][j].set_color('gray')
                         case 0:
                             self.board[i][j].set_color('yellow')
+
                     j = j + 1
                 i = i + 1
 
@@ -170,15 +172,18 @@ class Game(Scene):
 
             # TODO: Vai ter que otimizar
 
-    def check_promot(self):
-        pass
-        # if j == 1:
-        #     self.pieces.append(Pawn(self.size / 2, i, j, 0, posx, posy))
+    def check_promot(self, elem):
+        if isinstance(elem, Pawn):
+            posx = (self.window.width - 8 * self.size) / 2
+            posy = (self.window.height - 8 * self.size) / 2
+            if elem.type == 0 and elem.y == 7:
+                self.pieces.append(Queen(elem.radius,elem.x,elem.y,elem.type, posx, posy))
+                self.pieces.remove(elem)
+            if elem.type == 1 and elem.y == 0:
+                #TODO: abrir caixa de dialogo pokemon estilo red
+                self.pieces.append(Queen(elem.radius, elem.x, elem.y, elem.type, posx, posy))
+                self.pieces.remove(elem)
 
-
-
-        # if j == 6:
-        #     self.pieces.append(Pawn(self.size / 2, i, j, 1, posx, posy))
 
 
 
