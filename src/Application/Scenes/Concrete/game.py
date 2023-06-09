@@ -153,10 +153,10 @@ class Game(Scene):
                             self.board[i][j].set_color('purple')
 ################
                         case -1:
-                            None
+                            pass
                             # self.board[i][j].set_color('red')
                         case -2:
-                            None
+                            pass
                             # self.board[i][j].set_color('gray')
                         case 0:
                             self.board[i][j].set_color('yellow')
