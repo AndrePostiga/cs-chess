@@ -22,6 +22,15 @@ def check_pawn(x, y, type, pieces):
     return None
 
 
+def check_piece(x, y, pieces):
+    for piece in pieces:
+        if piece.x == x and piece.y == y:
+            return piece
+    else:
+        return None
+    pass
+
+
 class Pawn(Piece):
     def __init__(self, radius, x=0, y=0, ptype=0, offSetX=0, offSetY=0):
         super().__init__(radius, x, y, ptype, offSetX, offSetY)
@@ -38,7 +47,9 @@ class Pawn(Piece):
     def movepossibilities(self, pieces):
         maskmatrix = self.createmask()
         maskmatrix[self.x][self.y + (1 if self.type == 0 else -1)] = 1
-        if self.firstplay:
+        if self.firstplay \
+                and (check_piece(self.x, self.y + (1 if self.type == 0 else -1), pieces) is None) \
+                and (check_piece(self.x, self.y + (1 if self.type == 0 else -1), pieces) is None):
             maskmatrix[self.x][self.y + 2 * (1 if self.type == 0 else -1)] = 1
 
         # vê outras peças no campo; lento
@@ -80,7 +91,7 @@ class Pawn(Piece):
             kp, mv = super().move(x, y, pieces)
             # se for a primeira vez que moveu:
 
-            if mv and fp and (cord[x][y] == y + 2 or cord[x][y] == y - 2):
+            if mv and fp and (cord[1] == self.y + 2 or cord[1] == self.y - 2):
                 self.enpassant = True
             else:
                 self.enpassant = False

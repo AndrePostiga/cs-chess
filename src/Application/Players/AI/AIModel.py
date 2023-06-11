@@ -7,5 +7,5 @@ class AIModel:
             AIModel.ai_instance = AIModel()
         return AIModel.ai_instance
 
-    def handlePlay(self):
+    def handlePlay(self, pieces, table):
         pass

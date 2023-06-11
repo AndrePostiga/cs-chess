@@ -97,7 +97,8 @@ class Game(Scene):
                     for piece in self.pieces:
                         if (self.mouse.is_over_object(self.board[piece.x][piece.y])
                                 and self.mouse.is_button_pressed(1)
-                                and piece.type != self.turn):
+                                and piece.type != self.turn
+                                ):
                             self.choicepiece = piece
                             self.choice = piece.movepossibilities(self.pieces)
                             self.wasPressed = True
