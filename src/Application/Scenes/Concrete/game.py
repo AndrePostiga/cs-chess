@@ -8,6 +8,7 @@ from src.Application.Pieces.Concrete.Rook import Rook
 from src.Application.Pieces.Concrete.Queen import Queen
 from src.Application.Pieces.Concrete.King import King
 from src.Application.Pieces.Concrete.Knight import Knight
+from src.Application.Players.AI.AIModel import AIModel
 
 
 class Game(Scene):
@@ -24,6 +25,8 @@ class Game(Scene):
         self.wasPressed = True
 
         self.choice = None
+
+        self.aiSystem: AIModel
 
     def start(self):
         self.turn = 0
@@ -45,6 +48,8 @@ class Game(Scene):
 
                 if j == 6:
                     self.pieces.append(Pawn(self.size / 2, i, j, 1, posx, posy))
+
+        self.aiSystem = AIModel.intanceAI(0, [1, 2, 3, 4, 5, 6])
 
     def draw(self):
 
@@ -97,8 +102,7 @@ class Game(Scene):
                     for piece in self.pieces:
                         if (self.mouse.is_over_object(self.board[piece.x][piece.y])
                                 and self.mouse.is_button_pressed(1)
-                                and piece.type != self.turn
-                                ):
+                                and piece.type != self.turn):
                             self.choicepiece = piece
                             self.choice = piece.movepossibilities(self.pieces)
                             self.wasPressed = True
@@ -106,6 +110,24 @@ class Game(Scene):
                     if not self.mouse.is_button_pressed(1):
                         self.wasPressed = False
         else:
+            # Fixme: trash code
+            a = 0
+            aiplay = None
+            removedpiece = None
+            while a < 50:
+                aiplay = self.aiSystem.handlePlay(self.pieces)
+                print(aiplay)
+                if aiplay is None:
+                    raise
+                removedpiece = aiplay[0].move(aiplay[1], aiplay[2], self.pieces)
+                print(removedpiece)
+                if removedpiece[1]:
+                    break
+                a = a + 1
+
+            if removedpiece[0] is not None:
+                self.pieces.remove(removedpiece[0])
+            self.check_promot(aiplay[0])
             self.turn = 0
             # TODO não meu turno
 
@@ -152,7 +174,7 @@ class Game(Scene):
                             self.board[i][j].set_color('blue')
                         case 3:
                             self.board[i][j].set_color('purple')
-################
+                        ################
                         case -1:
                             pass
                             # self.board[i][j].set_color('red')
@@ -180,15 +202,11 @@ class Game(Scene):
             posx = (self.window.width - 8 * self.size) / 2
             posy = (self.window.height - 8 * self.size) / 2
             if elem.type == 0 and elem.y == 7:
-                self.pieces.append(Queen(elem.radius,elem.x,
-                                         elem.y,elem.type, posx, posy))
-                self.pieces.remove(elem)
-            if elem.type == 1 and elem.y == 0:
-                #TODO: abrir caixa de dialogo pokemon estilo red
                 self.pieces.append(Queen(elem.radius, elem.x,
                                          elem.y, elem.type, posx, posy))
                 self.pieces.remove(elem)
-
-
-
-
+            if elem.type == 1 and elem.y == 0:
+                # TODO: abrir caixa de dialogo pokemon estilo red
+                self.pieces.append(Queen(elem.radius, elem.x,
+                                         elem.y, elem.type, posx, posy))
+                self.pieces.remove(elem)
