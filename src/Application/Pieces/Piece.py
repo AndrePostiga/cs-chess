@@ -5,7 +5,7 @@ import pygame
 
 class Piece(ABC):
 
-    def __init__(self, radius, x:int, y:int, type=0, offSetX=0, offSetY=0):
+    def __init__(self, radius, x: int, y: int, type=0, offSetX=0, offSetY=0):
         self.center = None
         self.x = x
         self.y = y
@@ -19,6 +19,10 @@ class Piece(ABC):
             self.color = pygame.Color("gray22")
         self.radius = radius
         self.setCenter()
+
+        self.firstplay = True
+
+        self.dead = False
 
     # def draw(self):
     #     pygame.draw.circle(Window.get_screen(), self.color, self.center, self.radius)
@@ -62,8 +66,14 @@ class Piece(ABC):
 
             self.setCenter()
             self.image.set_position(self.center[0], self.center[1])
-            return None
+
+            if self.firstplay:
+                self.firstplay = False
+
+            return None, True
+
         elif check[x][y] == 2:
+
             removingpiece = None
             for piece in pieces:
                 if piece.x == x and piece.y == y:
@@ -75,8 +85,14 @@ class Piece(ABC):
             #
             self.setCenter()
             self.image.set_position(self.center[0], self.center[1])
-            return removingpiece
+
+            if self.firstplay:
+                self.firstplay = False
+
+            return removingpiece, True
             #
+        else:
+            return None, False
 
     @abstractmethod
     def movepossibilities(self, pieces: list["Piece"]) -> list[list[int]]:

@@ -20,8 +20,9 @@ class Chess:
         self.actual_scene.draw()
 
     def update(self):
-        self.window.update()
+        #self.window.update()
         self.actual_scene.update()
+        self.window.update()
         if self.actual_scene.change != 0:
             self.change_scene(self.actual_scene.change)
 
