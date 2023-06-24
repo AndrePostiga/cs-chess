@@ -26,17 +26,14 @@ class AIModel:
                 mypieces.append(i)
         self.piececount = len(mypieces)
 
-        play = None #= bestPlay(pieces)
+        play = None  # = bestPlay(pieces)
         if play is not None:
             return play
         play = self.randomPlay(mypieces)
         return play
 
-
-
-
-    #FIXME Trashy fallback, retorna jogada errada as vezes, loopa infinito
-    def randomPlay (self, pieces: list[Piece]) -> (Piece, int, int):
+    # FIXME Trashy fallback, retorna jogada errada as vezes, loopa infinito
+    def randomPlay(self, pieces: list[Piece]) -> (Piece, int, int):
         a = True
         selectedpiece = None
         possibleplays = None
@@ -58,8 +55,6 @@ class AIModel:
                     or possibleplays[x][y] == 3 or possibleplays[x][y] == 4:
                 return selectedpiece, x, y
 
-
-    def bestPlay(self, pieces, table) ->  (Piece, int, int):
-
+    def bestPlay(self, pieces, table) -> (Piece, int, int):
 
         pass
