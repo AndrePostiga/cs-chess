@@ -210,6 +210,23 @@ class Game(Scene):
                 self.pieces.remove(elem)
             if elem.type == 1 and elem.y == 0:
                 # TODO: abrir caixa de dialogo pokemon estilo red
-                self.pieces.append(Queen(elem.radius, elem.x,
-                                         elem.y, elem.type, posx, posy))
-                self.pieces.remove(elem)
+                #self.pieces.append(Queen(elem.radius, elem.x,
+                #                         elem.y, elem.type, posx, posy))
+
+                #Adicionar as opcoes e criar variaveizinhas
+                # legaizinhas pra facilitar a remocao depois da escolha
+                self.pieces.append(Queen(elem.radius, elem.x, elem.y, 5, posx - elem.radius * 2, posy - elem.radius *2))
+                queenR = self.pieces[len(self.pieces)-1]
+                self.pieces.append(
+                    Rook(elem.radius, elem.x, elem.y, 5, posx, posy - elem.radius * 2))
+                rookR = self.pieces[len(self.pieces)-1]
+                self.pieces.append(
+                    Bishop(elem.radius, elem.x, elem.y, 5, posx + elem.radius * 2, posy - elem.radius * 2))
+                bishopR = self.pieces[len(self.pieces)-1]
+                self.pieces.append(
+                    Knight(elem.radius, elem.x, elem.y, 5, posx + elem.radius * 4, posy - elem.radius * 2))
+                bishopR = self.pieces[len(self.pieces) -1]
+
+
+
+                #self.pieces.remove(elem)

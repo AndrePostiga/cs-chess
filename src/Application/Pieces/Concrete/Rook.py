@@ -18,7 +18,7 @@ class Rook(Piece):
 
     def __init__(self, radius, x=0, y=0, ptype=0, offSetX=0, offSetY=0):
         super().__init__(radius, x, y, ptype, offSetX, offSetY)
-        if self.type == 1:
+        if self.type == 1  or self.type == 5:
             self.image = Image(ROK_IMG_PATH_W)
         else:
             self.image = Image(ROK_IMG_PATH_B)
