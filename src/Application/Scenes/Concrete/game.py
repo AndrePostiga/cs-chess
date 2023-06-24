@@ -1,5 +1,6 @@
 from ..scene import Scene
 from Lib.tile import Tile
+from Lib.timer import Timer
 
 import pygame
 from src.Application.Pieces.Concrete.Pawn import Pawn
@@ -25,6 +26,8 @@ class Game(Scene):
         self.wasPressed = True
 
         self.choice = None
+
+        self.timer = Timer(window)
 
         self.aiSystem: AIModel
 
@@ -66,6 +69,7 @@ class Game(Scene):
 
         ##hora dos estados
         if self.turn == 0:
+            self.timer.timeP1()
             if (self.choice is not None) and (self.choicepiece is not None):
                 # minha vez e e eu escolhi a peça
                 if self.mouse.is_button_pressed(3):
@@ -134,7 +138,6 @@ class Game(Scene):
     def update(self):
         self.statemachine()
         self.maskboard()
-
     def appendspecials(self, posx, posy, col):
         if col == 0:
             self.pieces.append(Rook(self.size / 2, 0, 0, 0, posx, posy))
