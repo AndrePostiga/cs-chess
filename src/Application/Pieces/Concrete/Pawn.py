@@ -17,7 +17,8 @@ PAWN_IMG_PATH_B = \
 def check_pawn(x, y, type, pieces):
     for piece in pieces:
         if isinstance(piece, Pawn) and piece.enpassant \
-                and piece.x == x and piece.y == y and piece.type != type:
+                and piece.x == x and piece.y == y \
+                and piece.type != type:
             return piece
     return None
 
@@ -48,8 +49,10 @@ class Pawn(Piece):
         maskmatrix = self.createmask()
         maskmatrix[self.x][self.y + (1 if self.type == 0 else -1)] = 1
         if self.firstplay \
-                and (check_piece(self.x, self.y + (1 if self.type == 0 else -1), pieces) is None) \
-                and (check_piece(self.x, self.y + (1 if self.type == 0 else -1), pieces) is None):
+                and (check_piece(self.x, self.y + (1 if self.type == 0 else
+        -1), pieces) is None) \
+                and (check_piece(self.x, self.y + (1 if self.type == 0 else
+        -1), pieces) is None):
             maskmatrix[self.x][self.y + 2 * (1 if self.type == 0 else -1)] = 1
 
         # vê outras peças no campo; lento
@@ -104,6 +107,7 @@ class Pawn(Piece):
         for i in [-1, 1]:
             pawn = check_pawn(self.x + i, self.y, self.type, pieces)
             if (pawn and
-                    maskmatrix[self.x + i][self.y + (1 if self.type == 0 else -1)] == -1):
+                    maskmatrix[self.x + i][self.y + (1 if self.type == 0
+                    else -1)] == -1):
                 maskmatrix[self.x + i][self.y + (1 if self.type == 0 else -1)] = 3
                 # 3 = special movement
