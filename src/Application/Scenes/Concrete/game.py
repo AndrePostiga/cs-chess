@@ -1,8 +1,10 @@
 from ..scene import Scene
 from Lib.tile import Tile
 from Lib.timer import Timer
+
 from Lib.window import Window
 import os
+
 
 import pygame
 from src.Application.Pieces.Concrete.Pawn import Pawn
@@ -13,10 +15,12 @@ from src.Application.Pieces.Concrete.King import King
 from src.Application.Pieces.Concrete.Knight import Knight
 from src.Application.Players.AI.AIModel import AIModel
 
+
 PRJ_FLDR = os.path.dirname(os.path.abspath(__file__))
 PROMOT_TEST_IMG_PATH = \
     os.path.join(PRJ_FLDR, "..", "..", "..", "assets",
                  "imgs", "promotionTest2.png")
+
 
 
 class Game(Scene):
@@ -32,9 +36,11 @@ class Game(Scene):
         self.pieces = []
         self.wasPressed = True
 
+
         self.promotionPending = False
         self.promotionImg = pygame.image.load(PROMOT_TEST_IMG_PATH)
         self.promotionImgRect = self.promotionImg.get_rect()
+
 
         self.choice = None
 
@@ -220,6 +226,7 @@ class Game(Scene):
                                          elem.y, elem.type, posx, posy))
                 self.pieces.remove(elem)
             if elem.type == 1 and elem.y == 0:
+
                 # TODO: melhorar a aparencia da selecao de promocao
 
                 self.promotionPending = True
@@ -249,5 +256,6 @@ class Game(Scene):
                                     (Knight(elem.radius, elem.x,
                                             elem.y, elem.type, posx, posy))
                                 self.promotionPending = False
+
 
                 self.pieces.remove(elem)

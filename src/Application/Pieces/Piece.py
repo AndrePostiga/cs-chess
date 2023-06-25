@@ -22,7 +22,6 @@ class Piece(ABC):
         self.setCenter()
 
         self.firstplay = True
-        self.promoted = False
 
         self.dead = False
 
