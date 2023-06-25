@@ -2,6 +2,10 @@ from ..scene import Scene
 from Lib.tile import Tile
 from Lib.timer import Timer
 
+from Lib.window import Window
+import os
+
+
 import pygame
 from src.Application.Pieces.Concrete.Pawn import Pawn
 from src.Application.Pieces.Concrete.Bishop import Bishop
@@ -10,6 +14,13 @@ from src.Application.Pieces.Concrete.Queen import Queen
 from src.Application.Pieces.Concrete.King import King
 from src.Application.Pieces.Concrete.Knight import Knight
 from src.Application.Players.AI.AIModel import AIModel
+
+
+PRJ_FLDR = os.path.dirname(os.path.abspath(__file__))
+PROMOT_TEST_IMG_PATH = \
+    os.path.join(PRJ_FLDR, "..", "..", "..", "assets",
+                 "imgs", "promotionTest2.png")
+
 
 
 class Game(Scene):
@@ -24,6 +35,12 @@ class Game(Scene):
         self.board = []
         self.pieces = []
         self.wasPressed = True
+
+
+        self.promotionPending = False
+        self.promotionImg = pygame.image.load(PROMOT_TEST_IMG_PATH)
+        self.promotionImgRect = self.promotionImg.get_rect()
+
 
         self.choice = None
 
@@ -209,7 +226,36 @@ class Game(Scene):
                                          elem.y, elem.type, posx, posy))
                 self.pieces.remove(elem)
             if elem.type == 1 and elem.y == 0:
-                # TODO: abrir caixa de dialogo pokemon estilo red
-                self.pieces.append(Queen(elem.radius, elem.x,
-                                         elem.y, elem.type, posx, posy))
+
+                # TODO: melhorar a aparencia da selecao de promocao
+
+                self.promotionPending = True
+
+                while(self.promotionPending):
+                    Window.screen.blit(self.promotionImg, self.promotionImgRect)
+                    pygame.display.flip()
+                    for event in pygame.event.get():
+                        if event.type == pygame.KEYDOWN:
+                            if event.key == pygame.K_1:
+                                self.pieces.append\
+                                    (Queen(elem.radius, elem.x,
+                                           elem.y, elem.type, posx, posy))
+                                self.promotionPending = False
+                            elif event.key == pygame.K_2:
+                                self.pieces.append\
+                                    (Rook(elem.radius, elem.x,
+                                          elem.y, elem.type, posx, posy))
+                                self.promotionPending = False
+                            elif event.key == pygame.K_3:
+                                self.pieces.append\
+                                    (Bishop(elem.radius, elem.x,
+                                            elem.y, elem.type, posx, posy))
+                                self.promotionPending = False
+                            elif event.key == pygame.K_4:
+                                self.pieces.append\
+                                    (Knight(elem.radius, elem.x,
+                                            elem.y, elem.type, posx, posy))
+                                self.promotionPending = False
+
+
                 self.pieces.remove(elem)
