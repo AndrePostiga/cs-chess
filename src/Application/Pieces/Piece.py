@@ -59,52 +59,40 @@ class Piece(ABC):
     #     )
 
     def move(self, x, y, pieces):
-        if self.type != 5:
-            check = self.movepossibilities(pieces)
+        check = self.movepossibilities(pieces)
 
-            if check[x][y] == 1:
-                self.x = x
-                self.y = y
+        if check[x][y] == 1:
+            self.x = x
+            self.y = y
 
-                self.setCenter()
-                self.image.set_position(self.center[0], self.center[1])
+            self.setCenter()
+            self.image.set_position(self.center[0], self.center[1])
 
-                if self.firstplay:
-                    self.firstplay = False
+            if self.firstplay:
+                self.firstplay = False
 
-                return None, True
+            return None, True
 
-            elif check[x][y] == 2:
+        elif check[x][y] == 2:
 
-                removingpiece = None
-                for piece in pieces:
-                    if piece.x == x and piece.y == y:
-                        removingpiece = piece
-
-                self.x = x
-                self.y = y
-
-                #
-                self.setCenter()
-                self.image.set_position(self.center[0], self.center[1])
-
-                if self.firstplay:
-                    self.firstplay = False
-
-                return removingpiece, True
-                #
-            else:
-                return None, False
-        #no caso de ser a opcao para promocao
-        else:
+            removingpiece = None
             for piece in pieces:
-                if(piece.promoted == True):
-                    self.x = piece.x
-                    self.y = piece.y
-                    self.setCenter()
-                    self.image.set_position(self.center[0], self.center[1])
-                    pieces.remove(piece)
-                    break
+                if piece.x == x and piece.y == y:
+                    removingpiece = piece
+
+            self.x = x
+            self.y = y
+
+            #
+            self.setCenter()
+            self.image.set_position(self.center[0], self.center[1])
+
+            if self.firstplay:
+                self.firstplay = False
+
+            return removingpiece, True
+            #
+        else:
             return None, False
     @abstractmethod
     def movepossibilities(self, pieces: list["Piece"]) -> list[list[int]]:

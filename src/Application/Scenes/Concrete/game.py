@@ -230,16 +230,24 @@ class Game(Scene):
                     for event in pygame.event.get():
                         if event.type == pygame.KEYDOWN:
                             if event.key == pygame.K_1:
-                                self.pieces.append(Queen(elem.radius, elem.x, elem.y, elem.type, posx, posy))
+                                self.pieces.append\
+                                    (Queen(elem.radius, elem.x,
+                                           elem.y, elem.type, posx, posy))
                                 self.promotionPending = False
                             elif event.key == pygame.K_2:
-                                self.pieces.append(Rook(elem.radius, elem.x, elem.y, elem.type, posx, posy))
+                                self.pieces.append\
+                                    (Rook(elem.radius, elem.x,
+                                          elem.y, elem.type, posx, posy))
                                 self.promotionPending = False
                             elif event.key == pygame.K_3:
-                                self.pieces.append(Bishop(elem.radius, elem.x, elem.y, elem.type, posx, posy))
+                                self.pieces.append\
+                                    (Bishop(elem.radius, elem.x,
+                                            elem.y, elem.type, posx, posy))
                                 self.promotionPending = False
                             elif event.key == pygame.K_4:
-                                self.pieces.append(Knight(elem.radius, elem.x, elem.y, elem.type, posx, posy))
+                                self.pieces.append\
+                                    (Knight(elem.radius, elem.x,
+                                            elem.y, elem.type, posx, posy))
                                 self.promotionPending = False
 
                 self.pieces.remove(elem)
