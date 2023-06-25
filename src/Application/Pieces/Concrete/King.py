@@ -26,6 +26,31 @@ def check_tower(x, y, pieces, color):
 
 class King(Piece):
 
+    def checkcheck(self, pieces : list[Piece], xmove, ymove, piecemove: Piece):
+
+        if piecemove is not None: #querem mover
+            proxylist = pieces.copy()
+            proxypiece = object.__new__(type(piecemove))
+            proxypiece.__init__(0, xmove, ymove, piecemove.type, 0, 0)
+            #trocar peça real com a proxy
+            proxylist.remove(piecemove)
+            proxylist.append(proxypiece)
+        else: #estado atual
+            proxylist = pieces
+
+        #TODO: se for rei = 4, não a 2
+        for piece in proxylist:
+            possib = piece.movepossibilities(proxylist)
+            if possib[self.x][self.y] == 4:
+                return 1
+
+
+        return 0
+
+
+
+
+
     def __init__(self, radius, x=0, y=0, type=0, offSetX=0, offSetY=0):
         super().__init__(radius, x, y, type, offSetX, offSetY)
         if self.type == 1  or self.type == 5:

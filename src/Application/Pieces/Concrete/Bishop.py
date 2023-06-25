@@ -1,3 +1,4 @@
+from .King import King
 from ..Piece import Piece
 
 from Lib.image import Image
@@ -27,7 +28,12 @@ class Bishop(Piece):
         for piece in pieces:
             if (piece.x == x) and (piece.y == y):
                 if piece.type != self.type:
-                    return 2
+                    if isinstance(piece, King):
+                        return 4
+                    else:
+                        return 2
+
+
                 else:
                     return -2
         return None

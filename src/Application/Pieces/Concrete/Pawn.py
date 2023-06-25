@@ -1,3 +1,4 @@
+from .King import King
 from ..Piece import Piece
 
 from Lib.image import Image
@@ -61,7 +62,10 @@ class Pawn(Piece):
                 # pode comer a peça?
                 if (piece.y == self.y + (1 if self.type == 0 else -1)) and (
                         (piece.x == self.x + 1) or (piece.x == self.x - 1)):
-                    maskmatrix[piece.x][piece.y] = 2
+                    if isinstance(piece, King):
+                        maskmatrix[piece.x][piece.y] = 4
+                    else:
+                        maskmatrix[piece.x][piece.y] = 2
 
                 else:
                     maskmatrix[piece.x][piece.y] = -2

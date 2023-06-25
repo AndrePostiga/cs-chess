@@ -1,3 +1,4 @@
+from .King import King
 from ..Piece import Piece
 
 from Lib.image import Image
@@ -26,7 +27,10 @@ class Queen(Piece):
         for piece in pieces:
             if (piece.x == x) and (piece.y == y):
                 if piece.type != self.type:
-                    return 2
+                    if isinstance(piece, King):
+                        return 4
+                    else:
+                        return 2
                 else:
                     return -2
         return None
@@ -68,7 +72,10 @@ class Queen(Piece):
         # parte torre
         for piece in pieces:
             if (piece.x == self.x or piece.y == self.y) and self.type != piece.type:
-                mask[piece.x][piece.y] = 2
+                if isinstance(piece, King):
+                    mask[piece.x][piece.y] = 4
+                else:
+                    mask[piece.x][piece.y] = 2
             else:
                 mask[piece.x][piece.y] = -2
 
@@ -78,7 +85,8 @@ class Queen(Piece):
             while True:
                 if 0 <= self.x + i * count <= 7:
                     if (mask[self.x + i * count][self.y] == -2) \
-                            or (mask[self.x + i * count][self.y] == 2):
+                            or (mask[self.x + i * count][self.y] == 2)\
+                            or (mask[self.x + i * count][self.y] == 4):
                         self.fillRest(mask, self.x + i * (count + 1), self.y, 2 * i)
                         break
                     mask[self.x + i * count][self.y] = 1
@@ -91,7 +99,8 @@ class Queen(Piece):
             while True:
                 if 0 <= self.y + i * count <= 7:
                     if (mask[self.x][self.y + i * count] == -2) \
-                            or (mask[self.x][self.y + i * count] == 2):
+                            or (mask[self.x][self.y + i * count] == 2)\
+                            or (mask[self.x + i * count][self.y] == 4):
                         self.fillRest(mask, self.x, self.y + i * (count + 1), i)
                         break
                     mask[self.x][self.y + i * count] = 1

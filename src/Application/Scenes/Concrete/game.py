@@ -10,6 +10,7 @@ from src.Application.Pieces.Concrete.Queen import Queen
 from src.Application.Pieces.Concrete.King import King
 from src.Application.Pieces.Concrete.Knight import Knight
 from src.Application.Players.AI.AIModel import AIModel
+from ...Pieces.Piece import Piece
 
 
 class Game(Scene):
@@ -30,6 +31,10 @@ class Game(Scene):
         self.timer = Timer(window)
 
         self.aiSystem: AIModel
+
+        self.check_state = [0,0]
+        self.whiteking : King
+        self.blackking : King
 
     def start(self):
         self.turn = 0
@@ -82,9 +87,20 @@ class Game(Scene):
                                 if (self.mouse.is_over_object(block)
                                         and self.mouse.is_button_pressed(1)):
 
+                                    #se já tava em check e quer mover errado
+                                    if self.whiteking.checkcheck(
+                                            self.pieces, self.board.index(lane),
+                                        lane.index(block), self.pieces) == 1:
+                                        self.choice = None
+                                        self.choicepiece = None
+                                        break
+
+
+
                                     enemydefeat, hasmoved = self.choicepiece.move(
                                         self.board.index(lane),
                                         lane.index(block), self.pieces)
+
                                     if hasmoved:
                                         if enemydefeat is not None:
                                             self.pieces.remove(enemydefeat)
@@ -123,11 +139,18 @@ class Game(Scene):
                 print(aiplay)
                 if aiplay is None:
                     raise
+
+                if self.blackking.checkcheck(
+                        self.pieces, aiplay[1], aiplay[2], aiplay[0]) == 1:
+                    continue
+
                 removedpiece = aiplay[0].move(aiplay[1], aiplay[2], self.pieces)
                 print(removedpiece)
                 if removedpiece[1]:
                     break
                 a = a + 1
+            if a == 50:
+                print("ia arregou")
 
             if removedpiece[0] is not None:
                 self.pieces.remove(removedpiece[0])
@@ -136,6 +159,7 @@ class Game(Scene):
             # TODO não meu turno
 
     def update(self):
+        self.preplay_checkcheck()
         self.statemachine()
         self.maskboard()
     def appendspecials(self, posx, posy, col):
@@ -144,16 +168,19 @@ class Game(Scene):
             self.pieces.append(Knight(self.size / 2, 1, 0, 0, posx, posy))
             self.pieces.append(Bishop(self.size / 2, 2, 0, 0, posx, posy))
             self.pieces.append(Queen(self.size / 2, 3, 0, 0, posx, posy))
-            self.pieces.append(King(self.size / 2, 4, 0, 0, posx, posy))
+            self.blackking =King(self.size / 2, 4, 0, 0, posx, posy)
+            self.pieces.append(self.blackking)
             self.pieces.append(Bishop(self.size / 2, 5, 0, 0, posx, posy))
             self.pieces.append(Knight(self.size / 2, 6, 0, 0, posx, posy))
             self.pieces.append(Rook(self.size / 2, 7, 0, 0, posx, posy))
+
         else:
             self.pieces.append(Rook(self.size / 2, 0, 7, 1, posx, posy))
             self.pieces.append(Knight(self.size / 2, 1, 7, 1, posx, posy))
             self.pieces.append(Bishop(self.size / 2, 2, 7, 1, posx, posy))
             self.pieces.append(Queen(self.size / 2, 3, 7, 1, posx, posy))
-            self.pieces.append(King(self.size / 2, 4, 7, 1, posx, posy))
+            self.whiteking = King(self.size / 2, 4, 7, 1, posx, posy)
+            self.pieces.append(self.whiteking)
             self.pieces.append(Bishop(self.size / 2, 5, 7, 1, posx, posy))
             self.pieces.append(Knight(self.size / 2, 6, 7, 1, posx, posy))
             self.pieces.append(Rook(self.size / 2, 7, 7, 1, posx, posy))
@@ -177,6 +204,8 @@ class Game(Scene):
                             self.board[i][j].set_color('blue')
                         case 3:
                             self.board[i][j].set_color('purple')
+                        case 4:
+                            self.board[i][j].set_color('cyan')
                         ################
                         case -1:
                             pass
@@ -230,3 +259,26 @@ class Game(Scene):
 
 
                 #self.pieces.remove(elem)
+
+    def preplay_checkcheck(self):
+        if len(self.pieces) == 2:
+            #2 reis = afogamento
+            pass
+
+        #temos 2 reis
+        #vemos qual é o estado de medo deles
+
+        self.check_state = [self.blackking.checkcheck(self.pieces, 0, 0, None),
+                            self.whiteking.checkcheck(self.pieces, 0, 0, None)]
+
+        if self.check_state[0] == 2:
+            #white win
+            return
+        elif self.check_state[1] == 2:
+            #black win
+            return
+        else:
+            return
+
+
+
