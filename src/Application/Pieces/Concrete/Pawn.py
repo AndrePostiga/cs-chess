@@ -36,7 +36,7 @@ class Pawn(Piece):
     def __init__(self, radius, x=0, y=0, ptype=0, offSetX=0, offSetY=0):
         super().__init__(radius, x, y, ptype, offSetX, offSetY)
         self.enpassant = False
-        if self.type == 1  or self.type == 5:
+        if self.type == 1:
             self.image = Image(PAWN_IMG_PATH_W)
         else:
             self.image = Image(PAWN_IMG_PATH_B)
