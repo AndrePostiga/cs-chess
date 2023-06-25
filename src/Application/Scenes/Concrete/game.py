@@ -16,7 +16,7 @@ from src.Application.Players.AI.AIModel import AIModel
 PRJ_FLDR = os.path.dirname(os.path.abspath(__file__))
 PROMOT_TEST_IMG_PATH = \
     os.path.join(PRJ_FLDR, "..", "..", "..", "assets",
-                 "imgs", "promotionTest.png")
+                 "imgs", "promotionTest2.png")
 
 
 class Game(Scene):
