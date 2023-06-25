@@ -2,6 +2,9 @@ from ..scene import Scene
 from Lib.tile import Tile
 from Lib.timer import Timer
 
+from Lib.window import Window
+import os
+
 import pygame
 from src.Application.Pieces.Concrete.Pawn import Pawn
 from src.Application.Pieces.Concrete.Bishop import Bishop
@@ -10,7 +13,14 @@ from src.Application.Pieces.Concrete.Queen import Queen
 from src.Application.Pieces.Concrete.King import King
 from src.Application.Pieces.Concrete.Knight import Knight
 from src.Application.Players.AI.AIModel import AIModel
-from ...Pieces.Piece import Piece
+
+# from ...Pieces.Piece import Piece
+
+
+PRJ_FLDR = os.path.dirname(os.path.abspath(__file__))
+PROMOT_TEST_IMG_PATH = \
+    os.path.join(PRJ_FLDR, "..", "..", "..", "assets",
+                 "imgs", "promotionTest2.png")
 
 
 class Game(Scene):
@@ -26,15 +36,19 @@ class Game(Scene):
         self.pieces = []
         self.wasPressed = True
 
+        self.promotionPending = False
+        self.promotionImg = pygame.image.load(PROMOT_TEST_IMG_PATH)
+        self.promotionImgRect = self.promotionImg.get_rect()
+
         self.choice = None
 
         self.timer = Timer(window)
 
         self.aiSystem: AIModel
 
-        self.check_state = [0,0]
-        self.whiteking : King
-        self.blackking : King
+        self.check_state = [0, 0]
+        self.whiteking: King
+        self.blackking: King
 
     def start(self):
         self.turn = 0
@@ -87,15 +101,13 @@ class Game(Scene):
                                 if (self.mouse.is_over_object(block)
                                         and self.mouse.is_button_pressed(1)):
 
-                                    #se já tava em check e quer mover errado
+                                    # se já tava em check e quer mover errado
                                     if self.whiteking.checkcheck(
                                             self.pieces, self.board.index(lane),
-                                        lane.index(block), self.pieces) == 1:
+                                            lane.index(block), self.choicepiece) == 1:
                                         self.choice = None
                                         self.choicepiece = None
                                         break
-
-
 
                                     enemydefeat, hasmoved = self.choicepiece.move(
                                         self.board.index(lane),
@@ -149,6 +161,7 @@ class Game(Scene):
                 if removedpiece[1]:
                     break
                 a = a + 1
+
             if a == 50:
                 print("ia arregou")
 
@@ -159,28 +172,33 @@ class Game(Scene):
             # TODO não meu turno
 
     def update(self):
+
         self.preplay_checkcheck()
         self.statemachine()
         self.maskboard()
+
     def appendspecials(self, posx, posy, col):
         if col == 0:
             self.pieces.append(Rook(self.size / 2, 0, 0, 0, posx, posy))
             self.pieces.append(Knight(self.size / 2, 1, 0, 0, posx, posy))
             self.pieces.append(Bishop(self.size / 2, 2, 0, 0, posx, posy))
             self.pieces.append(Queen(self.size / 2, 3, 0, 0, posx, posy))
-            self.blackking =King(self.size / 2, 4, 0, 0, posx, posy)
+            self.blackking = King(self.size / 2, 4, 0, 0, posx, posy)
             self.pieces.append(self.blackking)
             self.pieces.append(Bishop(self.size / 2, 5, 0, 0, posx, posy))
             self.pieces.append(Knight(self.size / 2, 6, 0, 0, posx, posy))
             self.pieces.append(Rook(self.size / 2, 7, 0, 0, posx, posy))
+
 
         else:
             self.pieces.append(Rook(self.size / 2, 0, 7, 1, posx, posy))
             self.pieces.append(Knight(self.size / 2, 1, 7, 1, posx, posy))
             self.pieces.append(Bishop(self.size / 2, 2, 7, 1, posx, posy))
             self.pieces.append(Queen(self.size / 2, 3, 7, 1, posx, posy))
+
             self.whiteking = King(self.size / 2, 4, 7, 1, posx, posy)
             self.pieces.append(self.whiteking)
+
             self.pieces.append(Bishop(self.size / 2, 5, 7, 1, posx, posy))
             self.pieces.append(Knight(self.size / 2, 6, 7, 1, posx, posy))
             self.pieces.append(Rook(self.size / 2, 7, 7, 1, posx, posy))
@@ -204,8 +222,10 @@ class Game(Scene):
                             self.board[i][j].set_color('blue')
                         case 3:
                             self.board[i][j].set_color('purple')
+
                         case 4:
                             self.board[i][j].set_color('cyan')
+
                         ################
                         case -1:
                             pass
@@ -238,47 +258,54 @@ class Game(Scene):
                                          elem.y, elem.type, posx, posy))
                 self.pieces.remove(elem)
             if elem.type == 1 and elem.y == 0:
-                # TODO: abrir caixa de dialogo pokemon estilo red
-                #self.pieces.append(Queen(elem.radius, elem.x,
-                #                         elem.y, elem.type, posx, posy))
 
-                #Adicionar as opcoes e criar variaveizinhas
-                # legaizinhas pra facilitar a remocao depois da escolha
-                self.pieces.append(Queen(elem.radius, elem.x, elem.y, 5, posx - elem.radius * 2, posy - elem.radius *2))
-                queenR = self.pieces[len(self.pieces)-1]
-                self.pieces.append(
-                    Rook(elem.radius, elem.x, elem.y, 5, posx, posy - elem.radius * 2))
-                rookR = self.pieces[len(self.pieces)-1]
-                self.pieces.append(
-                    Bishop(elem.radius, elem.x, elem.y, 5, posx + elem.radius * 2, posy - elem.radius * 2))
-                bishopR = self.pieces[len(self.pieces)-1]
-                self.pieces.append(
-                    Knight(elem.radius, elem.x, elem.y, 5, posx + elem.radius * 4, posy - elem.radius * 2))
-                bishopR = self.pieces[len(self.pieces) -1]
+                # TODO: melhorar a aparencia da selecao de promocao
 
+                self.promotionPending = True
 
-
-                #self.pieces.remove(elem)
+                while (self.promotionPending):
+                    Window.screen.blit(self.promotionImg, self.promotionImgRect)
+                    pygame.display.flip()
+                    for event in pygame.event.get():
+                        if event.type == pygame.KEYDOWN:
+                            if event.key == pygame.K_1:
+                                self.pieces.append \
+                                    (Queen(elem.radius, elem.x,
+                                           elem.y, elem.type, posx, posy))
+                                self.promotionPending = False
+                            elif event.key == pygame.K_2:
+                                self.pieces.append \
+                                    (Rook(elem.radius, elem.x,
+                                          elem.y, elem.type, posx, posy))
+                                self.promotionPending = False
+                            elif event.key == pygame.K_3:
+                                self.pieces.append \
+                                    (Bishop(elem.radius, elem.x,
+                                            elem.y, elem.type, posx, posy))
+                                self.promotionPending = False
+                            elif event.key == pygame.K_4:
+                                self.pieces.append \
+                                    (Knight(elem.radius, elem.x,
+                                            elem.y, elem.type, posx, posy))
+                                self.promotionPending = False
+                self.pieces.remove(elem)
 
     def preplay_checkcheck(self):
         if len(self.pieces) == 2:
-            #2 reis = afogamento
+            # 2 reis = afogamento
             pass
 
-        #temos 2 reis
-        #vemos qual é o estado de medo deles
+        # temos 2 reis
+        # vemos qual é o estado de medo deles
 
         self.check_state = [self.blackking.checkcheck(self.pieces, 0, 0, None),
                             self.whiteking.checkcheck(self.pieces, 0, 0, None)]
 
         if self.check_state[0] == 2:
-            #white win
+            # white win
             return
         elif self.check_state[1] == 2:
-            #black win
+            # black win
             return
         else:
             return
-
-
-
