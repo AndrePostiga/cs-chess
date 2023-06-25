@@ -35,17 +35,24 @@ class King(Piece):
             #trocar peça real com a proxy
             proxylist.remove(piecemove)
             proxylist.append(proxypiece)
+            for piece in proxylist:
+                possib = piece.movepossibilities(proxylist)
+                if possib[self.x][self.y] == 4:
+                    return 1
         else: #estado atual
             proxylist = pieces
+            for piece in proxylist:
+                possib = piece.movepossibilities(proxylist)
+                if possib[self.x][self.y] == 4:
+                    if self.ismate(pieces):
+                        return 2
+                    return 1
 
-        #TODO: se for rei = 4, não a 2
-        for piece in proxylist:
-            possib = piece.movepossibilities(proxylist)
-            if possib[self.x][self.y] == 4:
-                return 1
-
-
+        #se for rei = 4, não a 2
         return 0
+
+    def ismate (self, pieces : list[Piece]):
+        pass
 
 
 
