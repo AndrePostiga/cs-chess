@@ -28,6 +28,7 @@ class Game(Scene):
     def __init__(self, window, mouse):
 
         super(Game, self).__init__(window, mouse)
+        self.bgcolor = "tan"
         self.size = 60
 
         self.change = 0
@@ -75,7 +76,7 @@ class Game(Scene):
 
     def draw(self):
 
-        self.window.set_background_color(pygame.Color('tan'))
+        self.window.set_background_color(pygame.Color(self.bgcolor))
         for row in self.board:
             for tile in row:
                 tile.draw()
@@ -209,6 +210,10 @@ class Game(Scene):
 
     def maskboard(self):
 
+        if self.check_state[1] == 1:
+            self.bgcolor = "firebrick1"
+        else:
+            self.bgcolor = "tan"
         if self.choice is not None:
             # mascara
             i = 0

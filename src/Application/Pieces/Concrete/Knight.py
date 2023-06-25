@@ -1,4 +1,4 @@
-from .King import King
+#from .King import King
 from ..Piece import Piece
 
 from Lib.image import Image
@@ -47,7 +47,7 @@ class Knight(Piece):
 
         for piece in pieces:
             if piece.type != self.type and (mask[piece.x][piece.y] == 1):
-                if isinstance(piece,King):
+                if type(piece).__name__ == "King":
                     mask[piece.x][piece.y] = 4
                 else:
                     mask[piece.x][piece.y] = 2

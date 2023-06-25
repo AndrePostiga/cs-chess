@@ -1,6 +1,6 @@
 import os
 
-from src.Application.Pieces.Concrete.King import King
+#from src.Application.Pieces.Concrete.King import King
 from src.Application.Pieces.Piece import Piece
 from Lib.image import Image
 
@@ -30,7 +30,7 @@ class Rook(Piece):
 
         for piece in pieces:
             if (piece.x == self.x or piece.y == self.y) and self.type != piece.type:
-                if isinstance(piece, King):
+                if type(piece).__name__ == "King":
                     mask[piece.x][piece.y] = 4
                 else:
                     mask[piece.x][piece.y] = 2
@@ -58,7 +58,7 @@ class Rook(Piece):
                 if 0 <= self.y + i * count <= 7:
                     if (mask[self.x][self.y + i * count] == -2) \
                             or (mask[self.x][self.y + i * count] == 2)\
-                            or (mask[self.x + i * count][self.y] == 4):
+                            or (mask[self.x][self.y + i * count] == 4):
                         self.fillRest(mask, self.x, self.y + i * (count + 1), i)
                         break
                     mask[self.x][self.y + i * count] = 1

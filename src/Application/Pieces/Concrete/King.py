@@ -27,11 +27,14 @@ def check_tower(x, y, pieces, color):
 class King(Piece):
 
     def checkcheck(self, pieces : list[Piece], xmove, ymove, piecemove: Piece):
+        #TODO: castling interagindo mal com xeque
+        #TODO: xeque inválido para o rei
 
         if piecemove is not None: #querem mover
             proxylist = pieces.copy()
-            proxypiece = object.__new__(type(piecemove))
-            proxypiece.__init__(0, xmove, ymove, piecemove.type, 0, 0)
+            proxypiece = type(piecemove).__new__(type(piecemove))
+            proxypiece.__init__(0, piecemove.x, piecemove.y, piecemove.type, 0, 0)
+            proxypiece.move(xmove,ymove,proxylist)
             #trocar peça real com a proxy
             proxylist.remove(piecemove)
             proxylist.append(proxypiece)
@@ -75,7 +78,10 @@ class King(Piece):
 
         for piece in pieces:
             if piece.type != self.type and (mask[piece.x][piece.y] == 1):
-                mask[piece.x][piece.y] = 2
+                if type(piece).__name__ == "King":
+                    mask[piece.x][piece.y] = 4
+                else:
+                    mask[piece.x][piece.y] = 2
             else:
                 mask[piece.x][piece.y] = -2
 
@@ -102,23 +108,28 @@ class King(Piece):
     def move(self, x, y, pieces):
         check = self.movepossibilities(pieces)
         if check[x][y] == 3:
-            if x > self.x:
-                tower = check_tower( 7, self.y,pieces, self.type)
-                tower.x = self.x+1
-                tower.setCenter()
-                tower.image.set_position(tower.center[0], tower.center[1])
-            else:
-                tower = check_tower( 0, self.y,pieces, self.type)
-                tower.x = self.x - 1
-                tower.setCenter()
-                tower.image.set_position(tower.center[0], tower.center[1])
-
+            #TODO: castling interagindo mal com xeque
+            #checar antes de mover qualquer coisa, importante
 
             self.x = x
             self.y = y
             self.setCenter()
             self.image.set_position(self.center[0], self.center[1])
             self.firstplay = False
+
+            if x > self.x:
+                tower = check_tower(7, self.y,pieces, self.type)
+                tower.x = self.x+1
+                tower.setCenter()
+                tower.image.set_position(tower.center[0], tower.center[1])
+            else:
+                tower = check_tower(0, self.y,pieces, self.type)
+                tower.x = self.x - 1
+                tower.setCenter()
+                tower.image.set_position(tower.center[0], tower.center[1])
+
+
+
             return None, True
         else:
             return super().move(x, y, pieces)
