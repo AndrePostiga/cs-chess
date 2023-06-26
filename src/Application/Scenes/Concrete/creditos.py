@@ -23,7 +23,7 @@ class Menu(Scene):
         pygame.font.init()
         self.text = pygame.font.SysFont(name="monospace", size=25)
         self.textlb = self.text.render \
-            ("Carneiro, Costa, Gavazzi, Pos- sem -tiga",
+            ("Carneiro, Costa, Gavazzi, Postiga",
              True, (0, 0, 0))
 
     def start(self):
