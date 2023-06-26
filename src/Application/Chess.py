@@ -12,6 +12,10 @@ class Chess:
             self.actual_scene = menu.Menu(self.window, self.mouse)
         elif scene == 2:
             self.actual_scene = game.Game(self.window, self.mouse)
+        elif scene == 77:
+            pass #ganhou
+        elif scene == 66:
+            pass #perdeu
         else:
             quit()
         self.actual_scene.start()

@@ -1,3 +1,4 @@
+#from .King import King
 from ..Piece import Piece
 
 from Lib.image import Image
@@ -36,7 +37,9 @@ class Pawn(Piece):
     def __init__(self, radius, x=0, y=0, ptype=0, offSetX=0, offSetY=0):
         super().__init__(radius, x, y, ptype, offSetX, offSetY)
         self.enpassant = False
+
         if self.type == 1:
+
             self.image = Image(PAWN_IMG_PATH_W)
         else:
             self.image = Image(PAWN_IMG_PATH_B)
@@ -61,7 +64,10 @@ class Pawn(Piece):
                 # pode comer a peça?
                 if (piece.y == self.y + (1 if self.type == 0 else -1)) and (
                         (piece.x == self.x + 1) or (piece.x == self.x - 1)):
-                    maskmatrix[piece.x][piece.y] = 2
+                    if type(piece).__name__ == "King":
+                        maskmatrix[piece.x][piece.y] = 4
+                    else:
+                        maskmatrix[piece.x][piece.y] = 2
 
                 else:
                     maskmatrix[piece.x][piece.y] = -2

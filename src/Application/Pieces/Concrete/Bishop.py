@@ -1,3 +1,4 @@
+#from .King import King
 from ..Piece import Piece
 
 from Lib.image import Image
@@ -17,7 +18,7 @@ BSP_IMG_PATH_B = \
 class Bishop(Piece):
     def __init__(self, radius, x=0, y=0, ptype=0, offSetX=0, offSetY=0):
         super().__init__(radius, x, y, ptype, offSetX, offSetY)
-        if self.type == 1:
+        if self.type == 1 or self.type == 5:
             self.image = Image(BSP_IMG_PATH_W)
         else:
             self.image = Image(BSP_IMG_PATH_B)
@@ -27,7 +28,12 @@ class Bishop(Piece):
         for piece in pieces:
             if (piece.x == x) and (piece.y == y):
                 if piece.type != self.type:
-                    return 2
+                    if type(piece).__name__ == "King":
+                        return 4
+                    else:
+                        return 2
+
+
                 else:
                     return -2
         return None

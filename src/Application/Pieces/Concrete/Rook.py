@@ -1,5 +1,6 @@
 import os
 
+#from src.Application.Pieces.Concrete.King import King
 from src.Application.Pieces.Piece import Piece
 from Lib.image import Image
 
@@ -18,7 +19,7 @@ class Rook(Piece):
 
     def __init__(self, radius, x=0, y=0, ptype=0, offSetX=0, offSetY=0):
         super().__init__(radius, x, y, ptype, offSetX, offSetY)
-        if self.type == 1:
+        if self.type == 1  or self.type == 5:
             self.image = Image(ROK_IMG_PATH_W)
         else:
             self.image = Image(ROK_IMG_PATH_B)
@@ -29,7 +30,10 @@ class Rook(Piece):
 
         for piece in pieces:
             if (piece.x == self.x or piece.y == self.y) and self.type != piece.type:
-                mask[piece.x][piece.y] = 2
+                if type(piece).__name__ == "King":
+                    mask[piece.x][piece.y] = 4
+                else:
+                    mask[piece.x][piece.y] = 2
             else:
                 mask[piece.x][piece.y] = -2
 
@@ -39,7 +43,8 @@ class Rook(Piece):
             while True:
                 if 0 <= self.x + i * count <= 7:
                     if (mask[self.x + i * count][self.y] == -2) \
-                            or (mask[self.x + i * count][self.y] == 2):
+                            or (mask[self.x + i * count][self.y] == 2)\
+                            or (mask[self.x + i * count][self.y] == 4):
                         self.fillRest(mask, self.x + i * (count + 1), self.y, 2 * i)
                         break
                     mask[self.x + i * count][self.y] = 1
@@ -52,7 +57,8 @@ class Rook(Piece):
             while True:
                 if 0 <= self.y + i * count <= 7:
                     if (mask[self.x][self.y + i * count] == -2) \
-                            or (mask[self.x][self.y + i * count] == 2):
+                            or (mask[self.x][self.y + i * count] == 2)\
+                            or (mask[self.x][self.y + i * count] == 4):
                         self.fillRest(mask, self.x, self.y + i * (count + 1), i)
                         break
                     mask[self.x][self.y + i * count] = 1

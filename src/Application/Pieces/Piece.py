@@ -13,7 +13,7 @@ class Piece(ABC):
         self.offSetX = offSetX
         self.offSetY = offSetY
         self.type = type
-        #Tipo 5 serao as pecas selecionaveis para promocao
+        # Tipo 5 serao as pecas selecionaveis para promocao
         if type == 0:
             self.color = pygame.Color("gray72")
         else:
@@ -58,6 +58,7 @@ class Piece(ABC):
     #     )
 
     def move(self, x, y, pieces):
+
         check = self.movepossibilities(pieces)
 
         if check[x][y] == 1:
@@ -93,6 +94,7 @@ class Piece(ABC):
             #
         else:
             return None, False
+
     @abstractmethod
     def movepossibilities(self, pieces: list["Piece"]) -> list[list[int]]:
         return NotImplemented

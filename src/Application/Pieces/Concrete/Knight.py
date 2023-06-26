@@ -1,3 +1,4 @@
+#from .King import King
 from ..Piece import Piece
 
 from Lib.image import Image
@@ -25,7 +26,7 @@ class Knight(Piece):
 
     def __init__(self, radius, x=0, y=0, ptype=0, offSetX=0, offSetY=0):
         super().__init__(radius, x, y, ptype, offSetX, offSetY)
-        if self.type == 1:
+        if self.type == 1  or self.type == 5:
             self.image = Image(KNT_IMG_PATH_W)
         else:
             self.image = Image(KNT_IMG_PATH_B)
@@ -46,7 +47,10 @@ class Knight(Piece):
 
         for piece in pieces:
             if piece.type != self.type and (mask[piece.x][piece.y] == 1):
-                mask[piece.x][piece.y] = 2
+                if type(piece).__name__ == "King":
+                    mask[piece.x][piece.y] = 4
+                else:
+                    mask[piece.x][piece.y] = 2
             else:
                 mask[piece.x][piece.y] = -2
 
