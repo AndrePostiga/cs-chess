@@ -50,6 +50,8 @@ class Game(Scene):
         self.check_state = [0, 0]
         self.whiteking: King
         self.blackking: King
+        self.blackmate = False
+        self.whitemate = False
 
     def start(self):
         self.turn = 0
@@ -176,7 +178,9 @@ class Game(Scene):
 
         self.preplay_checkcheck()
         self.statemachine()
+        self.postplay_checkcheck()
         self.maskboard()
+
 
     def appendspecials(self, posx, posy, col):
         if col == 0:
@@ -314,3 +318,25 @@ class Game(Scene):
             return
         else:
             return
+
+    def postplay_checkcheck(self):
+        #preost
+        if self.check_state[0] == 1:
+            if self.blackmate:
+                self.change = 66
+            self.blackmate = True
+        else:
+            self.blackmate = False
+
+        if self.check_state[1] == 1:
+            if self.whitemate:
+                self.change = 77
+            self.whitemate = True
+        else:
+            self.whitemate = False
+
+
+
+        #braosc
+
+
