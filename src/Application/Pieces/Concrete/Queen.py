@@ -100,7 +100,7 @@ class Queen(Piece):
                 if 0 <= self.y + i * count <= 7:
                     if (mask[self.x][self.y + i * count] == -2) \
                             or (mask[self.x][self.y + i * count] == 2)\
-                            or (mask[self.x][self.y + i * count] == 2):
+                            or (mask[self.x][self.y + i * count] == 4):
                         self.fillRest(mask, self.x, self.y + i * (count + 1), i)
                         break
                     mask[self.x][self.y + i * count] = 1

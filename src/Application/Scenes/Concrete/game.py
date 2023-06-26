@@ -103,12 +103,12 @@ class Game(Scene):
                                         and self.mouse.is_button_pressed(1)):
 
                                     # se já tava em check e quer mover errado
-                                    if self.whiteking.checkcheck(
-                                            self.pieces, self.board.index(lane),
-                                            lane.index(block), self.choicepiece) == 1:
-                                        self.choice = None
-                                        self.choicepiece = None
-                                        break
+                                    # if self.whiteking.checkcheck(
+                                    #         self.pieces, self.board.index(lane),
+                                    #         lane.index(block), self.choicepiece) == 1:
+                                    #     self.choice = None
+                                    #     self.choicepiece = None
+                                    #     break
 
                                     enemydefeat, hasmoved = self.choicepiece.move(
                                         self.board.index(lane),
@@ -147,15 +147,15 @@ class Game(Scene):
             a = 0
             aiplay = None
             removedpiece = None
-            while a < 50:
+            while a < 15:
                 aiplay = self.aiSystem.handlePlay(self.pieces)
                 print(aiplay)
                 if aiplay is None:
                     raise
 
-                if self.blackking.checkcheck(
-                        self.pieces, aiplay[1], aiplay[2], aiplay[0]) == 1:
-                    continue
+                # if self.blackking.checkcheck(
+                #         self.pieces, aiplay[1], aiplay[2], aiplay[0]) == 1:
+                #     continue
 
                 removedpiece = aiplay[0].move(aiplay[1], aiplay[2], self.pieces)
                 print(removedpiece)
