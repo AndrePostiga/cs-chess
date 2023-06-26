@@ -21,6 +21,7 @@ class Chess:
             self.actual_scene = loose.Menu(self.window, self.mouse)
         elif scene == 42:
             self.actual_scene = creditos.Menu(self.window, self.mouse)
+
         else:
             quit()
         self.actual_scene.start()

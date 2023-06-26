@@ -337,5 +337,42 @@ class Game(Scene):
                                             elem.y, elem.type, posx, posy))
                                 self.promotionPending = False
                 self.pieces.remove(elem)
+    
+    def preplay_checkcheck(self):
+        if len(self.pieces) == 2:
+            # 2 reis = afogamento
+            pass
+
+        # temos 2 reis
+        # vemos qual é o estado de medo deles
+
+        self.check_state = [self.blackking.checkcheck(self.pieces, 0, 0, None),
+                            self.whiteking.checkcheck(self.pieces, 0, 0, None)]
+
+        if self.check_state[0] == 2:
+            # white win
+            return
+        elif self.check_state[1] == 2:
+            # black win
+            return
+        else:
+            return
+
+    def postplay_checkcheck(self):
+        #preost
+        if self.check_state[0] == 1:
+            if self.blackmate:
+                self.change = 66
+            self.blackmate = True
+        else:
+            self.blackmate = False
+
+        if self.check_state[1] == 1:
+            if self.whitemate:
+                self.change = 77
+            self.whitemate = True
+        else:
+            self.whitemate = False
+
 
 
