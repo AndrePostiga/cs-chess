@@ -1,5 +1,5 @@
-from src.Application.Players.Concrete.Bot import Bot
-from src.Application.Players.Concrete.RealPlayer import RealPlayer
+from Players.Concrete.Bot import Bot
+from Players.Concrete.RealPlayer import RealPlayer
 
 
 class PlayerFacto:

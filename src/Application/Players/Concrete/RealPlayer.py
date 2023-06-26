@@ -1,4 +1,4 @@
-from src.Application.Players.PlayerInterf import PlayerInterf
+from Players.PlayerInterf import PlayerInterf
 
 
 class RealPlayer(PlayerInterf):

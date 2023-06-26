@@ -1,5 +1,5 @@
-from src.Application.Players.AI.AIModel import AIModel
-from src.Application.Players.PlayerInterf import PlayerInterf
+from Players.AI.AIModel import AIModel
+from Players.PlayerInterf import PlayerInterf
 
 
 class Bot(PlayerInterf):
