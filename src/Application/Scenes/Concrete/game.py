@@ -181,7 +181,6 @@ class Game(Scene):
         self.postplay_checkcheck()
         self.maskboard()
 
-
     def appendspecials(self, posx, posy, col):
         if col == 0:
             self.pieces.append(Rook(self.size / 2, 0, 0, 0, posx, posy))
@@ -320,23 +319,22 @@ class Game(Scene):
             return
 
     def postplay_checkcheck(self):
-        #preost
+        # preost
         if self.check_state[0] == 1:
             if self.blackmate:
-                self.change = 66
+                self.change = 77
             self.blackmate = True
         else:
             self.blackmate = False
 
         if self.check_state[1] == 1:
             if self.whitemate:
-                self.change = 77
+                self.change = 66
             self.whitemate = True
         else:
             self.whitemate = False
 
+        if self.timer.time_spent1 < 0:
+            self.change = 66
 
-
-        #braosc
-
-
+        # braosc
