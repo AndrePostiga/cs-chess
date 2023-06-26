@@ -38,7 +38,7 @@ class Menu(Scene):
                 return 2
             if (self.mouse.is_over_object(self.button_creditos) 
                 and self.mouse.is_button_pressed(1)):
-                return 0
+                return 42
             if (self.mouse.is_over_object(self.button_sair) 
                 and self.mouse.is_button_pressed(1)):
                 return -1

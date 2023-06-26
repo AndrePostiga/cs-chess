@@ -174,13 +174,52 @@ class Game(Scene):
             self.turn = 0
             # TODO não meu turno
 
+    def preplay_checkcheck(self):
+        if len(self.pieces) == 2:
+            # 2 reis = afogamento
+            pass
+
+        # temos 2 reis
+        # vemos qual é o estado de medo deles
+
+        self.check_state = [self.blackking.checkcheck(self.pieces, 0, 0, None),
+                            self.whiteking.checkcheck(self.pieces, 0, 0, None)]
+
+        if self.check_state[0] == 2:
+            # white win
+            return
+        elif self.check_state[1] == 2:
+            # black win
+            return
+        else:
+            return
+
+    def postplay_checkcheck(self):
+        # preost
+        if self.check_state[0] == 1:
+            if self.blackmate:
+                self.change = 77
+            self.blackmate = True
+        else:
+            self.blackmate = False
+
+        if self.check_state[1] == 1:
+            if self.whitemate:
+                self.change = 66
+            self.whitemate = True
+        else:
+            self.whitemate = False
+
+        if self.timer.time_spent1 < 0:
+            self.change = 66
+
+        # braosc
     def update(self):
 
         self.preplay_checkcheck()
         self.statemachine()
         self.postplay_checkcheck()
         self.maskboard()
-
 
     def appendspecials(self, posx, posy, col):
         if col == 0:
@@ -299,44 +338,5 @@ class Game(Scene):
                                 self.promotionPending = False
                 self.pieces.remove(elem)
 
-    def preplay_checkcheck(self):
-        if len(self.pieces) == 2:
-            # 2 reis = afogamento
-            pass
-
-        # temos 2 reis
-        # vemos qual é o estado de medo deles
-
-        self.check_state = [self.blackking.checkcheck(self.pieces, 0, 0, None),
-                            self.whiteking.checkcheck(self.pieces, 0, 0, None)]
-
-        if self.check_state[0] == 2:
-            # white win
-            return
-        elif self.check_state[1] == 2:
-            # black win
-            return
-        else:
-            return
-
-    def postplay_checkcheck(self):
-        #preost
-        if self.check_state[0] == 1:
-            if self.blackmate:
-                self.change = 66
-            self.blackmate = True
-        else:
-            self.blackmate = False
-
-        if self.check_state[1] == 1:
-            if self.whitemate:
-                self.change = 77
-            self.whitemate = True
-        else:
-            self.whitemate = False
-
-
-
-        #braosc
 
 

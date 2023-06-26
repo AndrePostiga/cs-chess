@@ -1,5 +1,8 @@
 from Lib.window import Window
 from Scenes.Concrete import menu,game
+from src.Application.Scenes.Concrete import win, loose, creditos
+
+
 class Chess:
     def __init__(self):
         self.window = Window(1080, 600)
@@ -13,9 +16,12 @@ class Chess:
         elif scene == 2:
             self.actual_scene = game.Game(self.window, self.mouse)
         elif scene == 77:
-            pass #ganhou
+            self.actual_scene = win.Menu(self.window, self.mouse)
         elif scene == 66:
-            pass #perdeu
+            self.actual_scene = loose.Menu(self.window, self.mouse)
+        elif scene == 42:
+            self.actual_scene = creditos.Menu(self.window, self.mouse)
+
         else:
             quit()
         self.actual_scene.start()
