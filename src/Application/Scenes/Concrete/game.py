@@ -6,13 +6,13 @@ from Lib.window import Window
 import os
 
 import pygame
-from src.Application.Pieces.Concrete.Pawn import Pawn
-from src.Application.Pieces.Concrete.Bishop import Bishop
-from src.Application.Pieces.Concrete.Rook import Rook
-from src.Application.Pieces.Concrete.Queen import Queen
-from src.Application.Pieces.Concrete.King import King
-from src.Application.Pieces.Concrete.Knight import Knight
-from src.Application.Players.AI.AIModel import AIModel
+from Pieces.Concrete.Pawn import Pawn
+from Pieces.Concrete.Bishop import Bishop
+from Pieces.Concrete.Rook import Rook
+from Pieces.Concrete.Queen import Queen
+from Pieces.Concrete.King import King
+from Pieces.Concrete.Knight import Knight
+from Players.AI.AIModel import AIModel
 
 # from ...Pieces.Piece import Piece
 

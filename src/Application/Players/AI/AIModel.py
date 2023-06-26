@@ -1,4 +1,4 @@
-from src.Application.Pieces.Piece import Piece
+from Pieces.Piece import Piece
 import random
 
 

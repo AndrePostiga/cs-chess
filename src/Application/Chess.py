@@ -1,6 +1,6 @@
 from Lib.window import Window
 from Scenes.Concrete import menu,game
-from src.Application.Scenes.Concrete import win, loose, creditos
+from Scenes.Concrete import win, loose, creditos
 
 
 class Chess:

@@ -1,7 +1,7 @@
 import os
 
 #from src.Application.Pieces.Concrete.King import King
-from src.Application.Pieces.Piece import Piece
+from Pieces.Piece import Piece
 from Lib.image import Image
 
 PRJ_FLDR = os.path.dirname(os.path.abspath(__file__))
